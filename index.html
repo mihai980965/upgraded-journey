@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,88 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
         <style>
+          .header-actions{
+            display:flex;
+            align-items:center;
+            gap:10px;
+          }
+          .theme-picker{
+            display: flex;
+            gap:6px;
+          }
+          .color-dot{
+            width:16px;
+            height:16px;
+            border-radius:50%;
+            border:2px solid var(--border);
+            cursor:pointer;
+            transition: transform 0.2s;
+          }
+          .color-dot:hover{
+            transform:scale(1.2);
+          }
+          .typing-cursor{
+            display: inline-block;
+            background-color:var(--primary);
+            width:8px;
+            height:20px;
+            margin-left:2px;
+            animation:blink 0.8s infinite;
+            vertical-align:middle;
+          }
+          @keyframes blink{
+            0%, 100%{ opacity:1;}
+            50% {opacity:0;}
+          }
+          .contact-conatiner{
+            display:grid;
+            grid-template-columns: 1fr;
+            gap:32px;
+          }
+          @media (max-width: 767px){
+            header .container{
+              flex.wrap: wrap;
+            }
+            nav{
+              order:3;
+              width:100%;
+            }
+            nav ul{
+              justify-content: flex-start;
+              padding-bottom:4px;
+            }
+            .header-actions{
+              gap:6px;
+            }
+            .hero h1{
+              font-size:clamp(36px,9vw, 48px);
+            }
+          }
+          .contact-form{
+            display:flex;
+            flex-direction:column;
+            gap:16px;
+            background: var(--card);
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+          }
+          .form-group{
+            display:flex;
+            flex-direction:column;
+            gap:16px;
+            font-family: var(--mono);
+            font-size:12px;
+          }
+          .form-group input, .form-group textarea{
+            padding:10px 12px;
+            font-family:var(--sans);
+            font-size:14px;
+            background:var(--bg);
+            border:1px solid var(--border);
+            border-radius:3px;
+            color: var(--fg);
+          }
           body {
             transition: background-color 0.4s ease, color 0.4s ease;
           }
@@ -398,22 +480,30 @@
         <div id="scroll-progress"></div>
         <header>
             <div class="container">
-                <a href="#top" class="logo">
-                    <span class="logo-box">LM</span>
-                    <span class="logo-name">Mihai</span>
-                </a>
-                <nav aria-label="Navigare principală">
-                    <ul>
-                        <li><a href="#about">About me</a></li>
-                        <li><a href="#robotics">Robotics</a></li>
-                        <li><a href="#info-math">Info &amp; Math</a></li>
-                        <li><a href="#football">Football</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-                <button id="theme-toggle" class="btn btn-outline" type="button" aria-pressed="false">
-                    Dark mode
+              <a href="#top" class="logo">
+                <span class="logo-box">LM</span>
+                <span class="logo-name">Mihai</span>
+              </a>
+              <nav aria-label="Navigare principală">
+                <ul>
+                  <li><a href="#about">About me</a></li>
+                  <li><a href="#robotics">Robotics</a></li>
+                  <li><a href="#info-math">Info &amp; Math</a></li>
+                  <li><a href="#football">Football</a></li>
+                  <li><a href="#contact">Contact</a></li>
+                </ul>
+              </nav>
+
+              <div class="header-actions">
+                <div class="theme-picker" title="Schimbă culoarea accentului">
+                  <div class="color-dot" style="background: #e8701f;" onclick="setAccent('#e8701f')"></div>
+                  <div class="color-dot" style="background: #2f8a50;" onclick="setAccent('#2f8a50')"></div>
+                  <div class="color-dot" style="background: #2563eb;" onclick="setAccent('#2563eb')"></div>
+                </div>
+                <button id="theme-toggle" class="btn btn-outline" type="button" aria-pressed="false" style="padding:6px 12px;font-size:12px;">
+                  Dark mode
                 </button>
+              </div>
             </div>
         </header>
 
@@ -599,11 +689,50 @@
         <script>
           const toggleBtn = document.getElementById('theme-toggle');
           
-          toggleBtn.addEventListener('click', () => {
-            const isDark = document.body.classList.toggle('dark-mode');
-            toggleBtn.setAttribute('aria-pressed', isDark);
+          function applyTheme(isDark){
+            document.body.classList.toggle('dark-mode',isDark);
+            toggleBtn.setAttribute('aria-pressed',String(isDark));
             toggleBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
+          }
+
+          const savedTheme = localStorage.getItem('theme');
+          applyTheme(savedTheme=='dark');
+
+          toggleBtn.addEventListener('click',()=>{
+            const isDark = !document.body.classList.contains('dark-mode');
+            applyTheme(isDark);
+            localStorage.setItem('theme',isDark ? 'dark' : 'light');
           });
+
+          const progressBar = document.getElementById('scroll-progress');
+          
+          function updateScrollProgress(){
+            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+            const progress = scrollableHeight >0
+            ?window.scrollY / scrollableHeight *100
+            : 0;
+            progressBar.style.width = '${progress}%';
+          }
+          window.addEventListener('scroll',updateScrollProgress,{
+            passive:true
+          });
+          window.addEventListener('resize',updateScrollProgress);
+          updateScrollProgress();
+          
+          
+          function setAccent(color){
+            document.documentElement.style.setProperty(
+              '--primary',
+              color
+             );
+             localStorage.setItem('accent-color',color);
+          }
+          const savedAccent =localStorage.getItem('accent-color');
+
+          if(savedAccent){
+            setAccent(savedAccent);
+          }
         </script>
     </body>
 </html>
