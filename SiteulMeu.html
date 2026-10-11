@@ -1,54 +1,609 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Siteul meu</title>
-</head>
-<body>
-    <style>
-    a:link {
-        color: blue;
-        background-color: transparent;
-        text-decoration: none;
-    }
-    a:visited {
-        color: rgba(0, 0, 255, 0.486);
-        background-color: transparent;
-        text-decoration:none;
-    }
-    a:hover {
-        color: rgb(11, 11, 68);
-        background-color: transparent;
-        text-decoration: underline;
-    }
-    a:active {
-        color: rgb(69, 69, 250);
-        background-color: transparent;
-        text-decoration: underline;
-    }
-    a:link, a:visited {
-        background-color:#706c6c;
-        padding:15px 25px;
-        text-align:center;
-        text-decoration:none;
-        display:inline-block;
-    }
-    a:hover, a:active {
-        background-color: red;
-    }
-    body {
-    background-color:rgba(102, 85, 85, 0.397);
-    }
-    p {
-        border: 2px solid powderblue;
-        padding: 20px;
-        margin: 20px;
-    }
-    </style>
-    <h1 style="background-color:powderblue; font-family:Verdana; text-align:center;">My name is mihai</h1>
-    <p style="font-size:50px;">I am a web developer. I like to build things from scratch.</p>
-    <a style="font-size:35px;" href="https://github.com/mihai980965" title="Github profile">GitHub</a>
-    <p style="font-size:50px;">The best coding language is <del>Python</del> <ins>C++</ins>.</p>
+<html lang="ro">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About me - Robotics, Computer Science, Mathematics and Football</title>
+        <meta name="description" content="My personal website: robotics projects, computer science and math results, and my passion for football.">
+        <meta name="theme-color" content="#f6f7f9">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <style>
+          body {
+            transition: background-color 0.4s ease, color 0.4s ease;
+          }
+          button, a, .card {
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+          }
+          body.dark-mode {
+            --bg: #101522;
+            --fg: #edf0f7;
+            --card: #192132;
+            --muted: #252e40;
+            --muted-fg: #a4aec2;
+            --border: #343e52;
+            --grid: rgba(255, 255, 255, 0.04);
+          }
+          #theme-toggle {
+            cursor: pointer;
+            font: inherit;
+          }
+          :root {
+            --bg: #f6f7f9;
+            --fg: #1b2337;
+            --card: #ffffff;
+            --primary: #e8701f;
+            --pitch: #2f8a50;
+            --muted: #eceef2;
+            --muted-fg: #646b80;
+            --border: #d9dde5;
+            --grid: rgba(27, 35, 55, 0.06);
+            --radius: 6px;
+            --mono: "JetBrains Mono", ui-monospace, monospace;
+            --sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+          }
+          * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+          }
+          html {
+            scroll-behavior: smooth; 
+            background: var(--bg);
+          }
+          body {
+            font-family: var(--sans);
+            color: var(--fg);
+            line-height: 1.5;
+            background-color: var(--bg);
+            background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+            background-size: 24px 24px;
+            -webkit-font-smoothing: antialiased;
+          }
+          img { 
+            display: block; width: 100%; height: 100%; object-fit: cover; 
+          }
+          a { 
+            color: inherit; text-decoration: none; 
+          }
+          ul { 
+            list-style: none; 
+          }
+          .container { 
+            max-width: 1024px; margin: 0 auto; padding: 0 16px; 
+          }
+          .mono { 
+            font-family: var(--mono); 
+          }
+          .label {
+            font-family: var(--mono); font-size: 12px;
+            text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted-fg); 
+          }
+          .muted { color: var(--muted-fg); }
+          .card { 
+            background: var(--card); 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius); 
+          }
+          header {
+            position: sticky; top: 0; z-index: 20;
+            background: var(--bg);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+          }
+          header .container {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 16px; padding-top: 12px; padding-bottom: 12px;
+          }
+          .logo { 
+            display: flex; align-items: center; gap: 8px; 
+            font-family: var(--mono); font-size: 14px; font-weight: 600; 
+          }
+          .logo-box {
+            display: flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 3px;
+            background: var(--fg); color: var(--bg);
+          }
+          .logo-name { 
+            display: none; 
+          }
+          nav { 
+            overflow-x: auto; 
+          }
+          nav ul { 
+            display: flex; gap: 4px; 
+            font-family: var(--mono); font-size: 12px; 
+          }
+          nav a {
+            display: block; white-space: nowrap;
+            padding: 6px 8px; border-radius: 3px;
+            color: var(--muted-fg); 
+            transition: background 0.2s, color 0.2s;
+            position: relative;
+          }
+          nav a:hover {
+            background: var(--muted);
+            color: var(--fg);  
+          }
+          .hero { 
+            display: flex; flex-direction: column; 
+            gap: 40px; padding-top: 56px; padding-bottom: 56px; 
+          }
+          .hero-text { 
+            display: flex; flex-direction: column; gap: 24px; 
+          }
+          .hero h1 { 
+            font-size: 48px; line-height: 1; font-weight: 700;
+            letter-spacing: -0.02em; text-wrap: balance; 
+          }
+          .hero h1 span { 
+            color: var(--primary); 
+          }
+          .hero-figure .card {
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+          }
+          .hero-figure .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 36px rgba(27, 35, 55, 0.12);
+          }
+          .hero-figure figcaption {
+            transition: color 0.25s ease;
+          }
+          .hero-figure:hover figcaption {
+            color: var(--primary);
+          }
+          .tagline { 
+            font-size: 20px; font-weight: 500; line-height: 1.3; 
+          }
+          .intro { 
+            max-width: 576px; color: var(--muted-fg); line-height: 1.6; 
+          }
+          .buttons { 
+            display: flex; flex-wrap: wrap; gap: 12px; 
+          }
+          button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+          }
+          button:active {
+            transform: scale(0.96);
+          }
+          a:hover {
+            opacity: 0.8;
+          }
+          .btn {
+            font-family: var(--mono); font-size: 14px; 
+            padding: 12px 20px; border-radius: 3px; 
+            border: 1px solid var(--fg);
+            transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+          }
+          .btn-solid { 
+            background: var(--fg); color: var(--bg); 
+          }
+          .btn-solid:hover { 
+            opacity: 0.9;
+            transform: translateY(3px);
+            box-shadow: 0 8px 20px rgba(27, 35, 55, 0.12);
+          }
+          .btn-outline:hover {
+            background: var(--fg); color: var(--bg); 
+          }
+          .btn:active {
+            transform: translateY(0) scale(0.98);
+          }
+          .hero-img { 
+            aspect-ratio: 4 / 5; overflow: hidden; border-radius: 3px; 
+          }
+          .hero-facts { 
+            display: grid; grid-template-columns: 1fr 1fr; 
+            gap: 1px; padding-top: 8px; 
+            font-family: var(--mono); font-size: 12px; 
+          }
+          .hero-facts div { 
+            display: flex; flex-direction: column; gap: 2px; 
+            background: var(--muted); padding: 8px; 
+          }
+          .hero-facts dt { color: var(--muted-fg); }
+          .hero-facts dd { font-weight: 600; }
+          figcaption.small { 
+            padding-top: 8px; font-family: var(--mono); 
+            font-size: 12px; color: var(--muted-fg); 
+          }
+          section.block {
+            border-top: 1px solid var(--border);
+            padding: 64px 0;
+            scroll-margin-top: 80px;
+          }
+          section.block .container > * {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          @media(prefers-reduced-motion: reduce) {
+            html {
+              scroll-behavior: auto;
+            }
+          }
+          #scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%; height: 3px;
+            background: var(--primary);
+            z-index: 100;
+            transition: width 0.08s linear;
+          }
+          section.block > .container { 
+            display: flex; flex-direction: column; gap: 40px; 
+          }
+          .section-head { 
+            display: flex; flex-direction: column; gap: 16px; 
+          }
+          .section-head h2 { 
+            font-size: 32px; font-weight: 700; 
+            letter-spacing: -0.02em; line-height: 1.1; text-wrap: balance; 
+          }
+          .section-head p { 
+            max-width: 672px; color: var(--muted-fg); line-height: 1.6; text-wrap: pretty; 
+          }
+          .about-grid { 
+            display: flex; flex-direction: column; gap: 40px; 
+          }
+          .about-text { 
+            display: flex; flex-direction: column; gap: 20px; 
+          }
+          .about-text p { 
+            font-size: 18px; line-height: 1.6; text-wrap: pretty; 
+          }
+          .facts-list { 
+            font-family: var(--mono); font-size: 14px; 
+          }
+          .facts-list div {
+            display: flex; justify-content: space-between; gap: 16px;
+            padding: 12px 16px; border-bottom: 1px solid var(--border);
+          }
+          .facts-list div:last-child { border-bottom: none; }
+          .facts-list dt { color: var(--muted-fg); }
+          .facts-list dd { font-weight: 600; text-align: right; }
+          .projects { 
+            display: grid; gap: 16px; 
+          }
+          .project { 
+            display: flex; flex-direction: column; gap: 16px; padding: 20px; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+          }
+          .project:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(27, 35, 55, 0.10);
+            border-color: var(--primary); 
+          }
+          .project-top { 
+            display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; 
+          }
+          .project h3 { font-size: 18px; font-weight: 600; line-height: 1.2; }
+          .project p { font-size: 14px; line-height: 1.6; color: var(--muted-fg); }
+          .tags { 
+            margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px; 
+          }
+          .tags li { 
+            background: var(--muted); padding: 4px 8px; 
+            border-radius: 3px; font-family: var(--mono); font-size: 12px; 
+          }
+          .results { 
+            display: flex; flex-direction: column; gap: 12px; 
+          }
+          .results ul li {
+            display: flex; flex-direction: column; gap: 4px;
+            padding: 12px 16px; border-bottom: 1px solid var(--border);
+          }
+          .results ul li:last-child { border-bottom: none; }
+          .results .name { font-weight: 500; }
+          .results .meta { 
+            display: flex; gap: 12px; font-family: var(--mono); font-size: 14px; 
+          }
+          .results .result { font-weight: 600; color: var(--primary); }
+          .two-col { 
+            display: flex; flex-direction: column; gap: 32px; 
+          }
+          .col {
+            display: flex; flex-direction: column; gap: 32px; 
+          }
+          .skills { 
+            display: flex; flex-direction: column; gap: 12px; padding: 16px; 
+          }
+          .skill-row { 
+            display: flex; justify-content: space-between; 
+            font-family: var(--mono); font-size: 14px; margin-bottom: 6px; 
+          }
+          .bar { 
+            height: 8px; background: var(--muted); 
+            border-radius: 3px; overflow: hidden; 
+          }
+          .bar span { 
+            display: block; height: 100%; background: var(--fg); 
+          }
+          .football-grid { 
+            display: flex; flex-direction: column; gap: 16px; 
+          }
+          .player-card {
+            display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+            background: var(--pitch); color: #fff; padding: 24px; border-radius: var(--radius);
+          }
+          .player-number { 
+            display: flex; justify-content: space-between; align-items: baseline; 
+          }
+          .player-number .label { color: rgba(255, 255, 255, 0.8); }
+          .player-number strong { font-size: 72px; line-height: 1; font-weight: 700; }
+          .player-details { 
+            display: flex; flex-direction: column; gap: 8px; font-family: var(--mono); font-size: 14px; 
+          }
+          .player-details div { 
+            display: flex; justify-content: space-between; gap: 16px; 
+            padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.25); 
+          }
+          .player-details dt { opacity: 0.8; }
+          .player-details dd { font-weight: 600; text-align: right; }
+          .contact { 
+            display: flex; flex-direction: column; gap: 24px; 
+          }
+          .email {
+            width: fit-content; word-break: break-all; 
+            font-size: 24px; font-weight: 600;
+            text-decoration: underline; text-decoration-color: var(--primary);
+            text-decoration-thickness: 2px; text-underline-offset: 8px; 
+            transition: color 0.2s;
+          }
+          .email:hover { color: var(--primary); }
+          .links { 
+            display: flex; flex-wrap: wrap; gap: 12px; 
+          }
+          .links a {
+            display: block; padding: 8px 16px; 
+            font-family: var(--mono); font-size: 14px;
+            background: var(--card); border: 1px solid var(--border); 
+            border-radius: 3px; transition: border-color 0.2s;
+          }
+          .links a:hover { border-color: var(--fg); }
+          footer { 
+            border-top: 1px solid var(--border); 
+          }
+          footer .container {
+            display: flex; flex-direction: column; 
+            gap: 8px; padding-top: 24px; padding-bottom: 24px;
+            font-family: var(--mono); font-size: 12px; color: var(--muted-fg);
+          }
+          @media (min-width: 640px) {
+            .logo-name { display: inline; }
+            .results ul li { flex-direction: row; justify-content: space-between; align-items: center; }
+            footer .container { flex-direction: row; justify-content: space-between; }
+          }
+          @media (min-width: 768px) {
+            .hero { flex-direction: row; align-items: center; padding-top: 96px; padding-bottom: 96px; }
+            .hero-text { flex: 3; }
+            .hero-figure { flex: 2; }
+            .hero h1 { font-size: 72px; }
+            section.block { padding: 96px 0; }
+            .section-head h2 { font-size: 48px; }
+            .about-grid { flex-direction: row; }
+            .about-text { flex: 2; }
+            .facts-list { flex: 1; align-self: flex-start; }
+            .projects { grid-template-columns: repeat(3, 1fr); }
+            .two-col { flex-direction: row; }
+            .two-col > * { flex: 1; }
+            .email { font-size: 36px; }
+          }
+        </style>
+    </head>
+    <body>
+        <div id="scroll-progress"></div>
+        <header>
+            <div class="container">
+                <a href="#top" class="logo">
+                    <span class="logo-box">LM</span>
+                    <span class="logo-name">Mihai</span>
+                </a>
+                <nav aria-label="Navigare principală">
+                    <ul>
+                        <li><a href="#about">About me</a></li>
+                        <li><a href="#robotics">Robotics</a></li>
+                        <li><a href="#info-math">Info &amp; Math</a></li>
+                        <li><a href="#football">Football</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <button id="theme-toggle" class="btn btn-outline" type="button" aria-pressed="false">
+                    Dark mode
+                </button>
+            </div>
+        </header>
 
-    <address style="font-size:30px;">You can contact me at mihailascar12345@gmail.com</address>
-</body>
+        <main>
+            <section id="top" class="container hero">
+                <div class="hero-text">
+                    <h1>Hi, I'm <span>Lascăr Mihai</span>.</h1>
+                    <p class="tagline">I build robots, solve computer problems, and play football.</p>
+                    <p class="intro">
+                        I am a student passionate about everything that means logic and movement: from a robot that follows a line,
+                        to an Olympics problem or a counterattack on the field. Here you can find everything I do and what I like.
+                    </p>
+                    <div class="buttons">
+                        <a href="#about" class="btn btn-solid">Learn more</a>
+                        <a href="#contact" class="btn btn-outline">Contact</a>
+                    </div>
+                </div>
+
+                <figure class="hero-figure">
+                    <div class="card">
+                        <div class="hero-img">
+                            <img src="images/RobotBobo.jfif" alt="Robot built on the work table">
+                        </div>
+                        <dl class="hero-facts">
+                            <div><dt>Age</dt><dd>16 years</dd></div>
+                            <div><dt>City</dt><dd>Iași</dd></div>
+                            <div><dt>Class</dt><dd>a IX-a</dd></div>
+                            <div><dt>Preferred language</dt><dd>C++</dd></div>
+                        </dl>
+                    </div>
+                    <figcaption class="small">My last robot</figcaption>
+                </figure>
+            </section>
+
+            <section id="about" class="block" aria-labelledby="about-title">
+                <div class="container">
+                    <div class="section-head">
+                        <h2 id="about-title">Who am I</h2>
+                    </div>
+                    <div class="about-grid">
+                        <div class="about-text">
+                            <p>I started computer science in the 5th grade, when I did my first programs in C++.</p>
+                            <p>I like math because every problem has an elegant solution waiting to be found. Computer science is where ideas become something that works.</p>
+                            <p>When I'm not at the computer, I'm on the field. Football taught me discipline, teamwork, and not to give up until the last minute.</p>
+                            <p>I want to make a career in computer science and contribute to the development of technology. Besides that, I also want to learn cybersecurity.</p>
+                        </div>
+                        <dl class="card facts-list">
+                            <div><dt>Age</dt><dd>16 years</dd></div>
+                            <div><dt>City</dt><dd>Iași</dd></div>
+                            <div><dt>Class</dt><dd>a IX-a</dd></div>
+                            <div><dt>Preferred language</dt><dd>C++</dd></div>
+                            <div><dt>Position</dt><dd>Striker</dd></div>
+                            <div><dt>School</dt><dd>Liceul Teoretic de Informatică</dd></div>
+                        </dl>
+                    </div>
+                </div>
+            </section>
+
+            <section id="robotics" class="block" aria-labelledby="robotics-title">
+                <div class="container">
+                    <div class="section-head">
+                        <h2 id="robotics-title">Things that come to life</h2>
+                        <p>I work on my own projects and am part of a high school robotics team. I love the programming part of the sensors and how the engines work.</p>
+                    </div>
+
+                    <ul class="projects">
+                        <li class="card project">
+                            <div class="project-top">
+                                <h3>Line Follower Robot</h3>
+                                <span class="mono muted" style="font-size:12px">2026</span>
+                            </div>
+                            <p>Robot optimized for fast track navigation using analog sensors.</p>
+                            <ul class="tags" aria-label="Tehnologii">
+                                <li>Arduino</li><li>Sensors</li><li>C++</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="info-math" class="block" aria-labelledby="info-math-title">
+                <div class="container">
+                    <div class="section-head">
+                        <h2 id="info-math-title">Problems &amp; Solutions</h2>
+                        <p>I participate in computer science and math Olympiads and solve problems online almost every day.</p>
+                    </div>
+
+                    <div class="two-col">
+                        <div class="col">
+                            <div class="results">
+                                <h3 class="label">Olympics and competitions</h3>
+                                <ul class="card">
+                                    <li>
+                                        <span class="name">Informatics Olympiad — National stage</span>
+                                        <span class="meta"><span class="result">Mention</span><span class="muted">2025</span></span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="results">
+                                <h3 class="label">Skills</h3>
+                                <ul class="card skills">
+                                    <li>
+                                        <div class="skill-row"><span>C++</span><span class="muted">85%</span></div>
+                                        <div class="bar" role="progressbar" aria-label="C++" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span style="width:85%"></span></div>
+                                    </li>
+                                    <li>
+                                        <div class="skill-row"><span>HTML</span><span class="muted">65%</span></div>
+                                        <div class="bar" role="progressbar" aria-label="HTML" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"><span style="width:65%"></span></div>
+                                    </li>
+                                    <li>
+                                        <div class="skill-row"><span>Python</span><span class="muted">50%</span></div>
+                                        <div class="bar" role="progressbar" aria-label="Python" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><span style="width:50%"></span></div>
+                                    </li>
+                                    <li>
+                                        <div class="skill-row"><span>Java</span><span class="muted">45%</span></div>
+                                        <div class="bar" role="progressbar" aria-label="Java" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"><span style="width:45%"></span></div>
+                                    </li>
+                                    <li>
+                                        <div class="skill-row"><span>Algorithmic</span><span class="muted">80%</span></div>
+                                        <div class="bar" role="progressbar" aria-label="Algoritmică" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"><span style="width:80%"></span></div>
+                                    </li>
+                                    <li>
+                                        <div class="skill-row"><span>Geometry</span><span class="muted">90%</span></div>
+                                        <div class="bar" role="progressbar" aria-label="Geometrie" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"><span style="width:90%"></span></div>
+                                    </li>
+                                    <li>
+                                        <div class="skill-row"><span>Combinatorics</span><span class="muted">70%</span></div>
+                                        <div class="bar" role="progressbar" aria-label="Combinatorică" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"><span style="width:70%"></span></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="football" class="block" aria-labelledby="football-title">
+                <div class="container">
+                    <div class="section-head">
+                        <h2 id="football-title">Football</h2>
+                        <p>Passionate about strategy, discipline, and teamwork on the pitch.</p>
+                    </div>
+                    <div class="football-grid">
+                        <div class="player-card">
+                            <div class="player-number">
+                                <span class="label">Position</span>
+                                <strong>9</strong>
+                            </div>
+                            <dl class="player-details">
+                                <div><dt>Role</dt><dd>Striker</dd></div>
+                                <div><dt>Preferred foot</dt><dd>Right</dd></div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="block" aria-labelledby="contact-title">
+                <div class="container">
+                    <div class="section-head">
+                        <h2 id="contact-title">Contact</h2>
+                        <p>Let's get in touch for projects or collaborations.</p>
+                    </div>
+                    <div class="contact">
+                        <a href="mailto:mihai@example.com" class="email">mihai@example.com</a>
+                        <div class="links">
+                            <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+                            <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 Lascăr Mihai. All rights reserved.</p>
+                <p>Designed with passion.</p>
+            </div>
+        </footer>
+
+        <script>
+          const toggleBtn = document.getElementById('theme-toggle');
+          
+          toggleBtn.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark-mode');
+            toggleBtn.setAttribute('aria-pressed', isDark);
+            toggleBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
+          });
+        </script>
+    </body>
 </html>
