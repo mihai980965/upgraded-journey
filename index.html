@@ -1,738 +1,2578 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>About me - Robotics, Computer Science, Mathematics and Football</title>
-        <meta name="description" content="My personal website: robotics projects, computer science and math results, and my passion for football.">
-        <meta name="theme-color" content="#f6f7f9">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <style>
-          .header-actions{
-            display:flex;
-            align-items:center;
-            gap:10px;
-          }
-          .theme-picker{
-            display: flex;
-            gap:6px;
-          }
-          .color-dot{
-            width:16px;
-            height:16px;
-            border-radius:50%;
-            border:2px solid var(--border);
-            cursor:pointer;
-            transition: transform 0.2s;
-          }
-          .color-dot:hover{
-            transform:scale(1.2);
-          }
-          .typing-cursor{
-            display: inline-block;
-            background-color:var(--primary);
-            width:8px;
-            height:20px;
-            margin-left:2px;
-            animation:blink 0.8s infinite;
-            vertical-align:middle;
-          }
-          @keyframes blink{
-            0%, 100%{ opacity:1;}
-            50% {opacity:0;}
-          }
-          .contact-conatiner{
-            display:grid;
-            grid-template-columns: 1fr;
-            gap:32px;
-          }
-          @media (max-width: 767px){
-            header .container{
-              flex.wrap: wrap;
-            }
-            nav{
-              order:3;
-              width:100%;
-            }
-            nav ul{
-              justify-content: flex-start;
-              padding-bottom:4px;
-            }
-            .header-actions{
-              gap:6px;
-            }
-            .hero h1{
-              font-size:clamp(36px,9vw, 48px);
-            }
-          }
-          .contact-form{
-            display:flex;
-            flex-direction:column;
-            gap:16px;
-            background: var(--card);
-            padding: 24px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-          }
-          .form-group{
-            display:flex;
-            flex-direction:column;
-            gap:16px;
-            font-family: var(--mono);
-            font-size:12px;
-          }
-          .form-group input, .form-group textarea{
-            padding:10px 12px;
-            font-family:var(--sans);
-            font-size:14px;
-            background:var(--bg);
-            border:1px solid var(--border);
-            border-radius:3px;
-            color: var(--fg);
-          }
-          body {
-            transition: background-color 0.4s ease, color 0.4s ease;
-          }
-          button, a, .card {
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-          }
-          body.dark-mode {
-            --bg: #101522;
-            --fg: #edf0f7;
-            --card: #192132;
-            --muted: #252e40;
-            --muted-fg: #a4aec2;
-            --border: #343e52;
-            --grid: rgba(255, 255, 255, 0.04);
-          }
-          #theme-toggle {
-            cursor: pointer;
-            font: inherit;
-          }
-          :root {
-            --bg: #f6f7f9;
-            --fg: #1b2337;
-            --card: #ffffff;
-            --primary: #e8701f;
-            --pitch: #2f8a50;
-            --muted: #eceef2;
-            --muted-fg: #646b80;
-            --border: #d9dde5;
-            --grid: rgba(27, 35, 55, 0.06);
-            --radius: 6px;
-            --mono: "JetBrains Mono", ui-monospace, monospace;
-            --sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-          }
-          * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-          }
-          html {
-            scroll-behavior: smooth; 
-            background: var(--bg);
-          }
-          body {
-            font-family: var(--sans);
-            color: var(--fg);
-            line-height: 1.5;
-            background-color: var(--bg);
-            background-image: linear-gradient(var(--grid) 1px, transparent 1px),
-                              linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-            background-size: 24px 24px;
-            -webkit-font-smoothing: antialiased;
-          }
-          img { 
-            display: block; width: 100%; height: 100%; object-fit: cover; 
-          }
-          a { 
-            color: inherit; text-decoration: none; 
-          }
-          ul { 
-            list-style: none; 
-          }
-          .container { 
-            max-width: 1024px; margin: 0 auto; padding: 0 16px; 
-          }
-          .mono { 
-            font-family: var(--mono); 
-          }
-          .label {
-            font-family: var(--mono); font-size: 12px;
-            text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted-fg); 
-          }
-          .muted { color: var(--muted-fg); }
-          .card { 
-            background: var(--card); 
-            border: 1px solid var(--border); 
-            border-radius: var(--radius); 
-          }
-          header {
-            position: sticky; top: 0; z-index: 20;
-            background: var(--bg);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border);
-          }
-          header .container {
-            display: flex; align-items: center; justify-content: space-between;
-            gap: 16px; padding-top: 12px; padding-bottom: 12px;
-          }
-          .logo { 
-            display: flex; align-items: center; gap: 8px; 
-            font-family: var(--mono); font-size: 14px; font-weight: 600; 
-          }
-          .logo-box {
-            display: flex; align-items: center; justify-content: center;
-            width: 32px; height: 32px; border-radius: 3px;
-            background: var(--fg); color: var(--bg);
-          }
-          .logo-name { 
-            display: none; 
-          }
-          nav { 
-            overflow-x: auto; 
-          }
-          nav ul { 
-            display: flex; gap: 4px; 
-            font-family: var(--mono); font-size: 12px; 
-          }
-          nav a {
-            display: block; white-space: nowrap;
-            padding: 6px 8px; border-radius: 3px;
-            color: var(--muted-fg); 
-            transition: background 0.2s, color 0.2s;
-            position: relative;
-          }
-          nav a:hover {
-            background: var(--muted);
-            color: var(--fg);  
-          }
-          .hero { 
-            display: flex; flex-direction: column; 
-            gap: 40px; padding-top: 56px; padding-bottom: 56px; 
-          }
-          .hero-text { 
-            display: flex; flex-direction: column; gap: 24px; 
-          }
-          .hero h1 { 
-            font-size: 48px; line-height: 1; font-weight: 700;
-            letter-spacing: -0.02em; text-wrap: balance; 
-          }
-          .hero h1 span { 
-            color: var(--primary); 
-          }
-          .hero-figure .card {
-            transition: transform 0.35s ease, box-shadow 0.35s ease;
-          }
-          .hero-figure .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 36px rgba(27, 35, 55, 0.12);
-          }
-          .hero-figure figcaption {
-            transition: color 0.25s ease;
-          }
-          .hero-figure:hover figcaption {
-            color: var(--primary);
-          }
-          .tagline { 
-            font-size: 20px; font-weight: 500; line-height: 1.3; 
-          }
-          .intro { 
-            max-width: 576px; color: var(--muted-fg); line-height: 1.6; 
-          }
-          .buttons { 
-            display: flex; flex-wrap: wrap; gap: 12px; 
-          }
-          button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-          }
-          button:active {
-            transform: scale(0.96);
-          }
-          a:hover {
-            opacity: 0.8;
-          }
-          .btn {
-            font-family: var(--mono); font-size: 14px; 
-            padding: 12px 20px; border-radius: 3px; 
-            border: 1px solid var(--fg);
-            transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-          }
-          .btn-solid { 
-            background: var(--fg); color: var(--bg); 
-          }
-          .btn-solid:hover { 
-            opacity: 0.9;
-            transform: translateY(3px);
-            box-shadow: 0 8px 20px rgba(27, 35, 55, 0.12);
-          }
-          .btn-outline:hover {
-            background: var(--fg); color: var(--bg); 
-          }
-          .btn:active {
-            transform: translateY(0) scale(0.98);
-          }
-          .hero-img { 
-            aspect-ratio: 4 / 5; overflow: hidden; border-radius: 3px; 
-          }
-          .hero-facts { 
-            display: grid; grid-template-columns: 1fr 1fr; 
-            gap: 1px; padding-top: 8px; 
-            font-family: var(--mono); font-size: 12px; 
-          }
-          .hero-facts div { 
-            display: flex; flex-direction: column; gap: 2px; 
-            background: var(--muted); padding: 8px; 
-          }
-          .hero-facts dt { color: var(--muted-fg); }
-          .hero-facts dd { font-weight: 600; }
-          figcaption.small { 
-            padding-top: 8px; font-family: var(--mono); 
-            font-size: 12px; color: var(--muted-fg); 
-          }
-          section.block {
-            border-top: 1px solid var(--border);
-            padding: 64px 0;
-            scroll-margin-top: 80px;
-          }
-          section.block .container > * {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          @media(prefers-reduced-motion: reduce) {
-            html {
-              scroll-behavior: auto;
-            }
-          }
-          #scroll-progress {
-            position: fixed;
-            top: 0; left: 0;
-            width: 0%; height: 3px;
-            background: var(--primary);
-            z-index: 100;
-            transition: width 0.08s linear;
-          }
-          section.block > .container { 
-            display: flex; flex-direction: column; gap: 40px; 
-          }
-          .section-head { 
-            display: flex; flex-direction: column; gap: 16px; 
-          }
-          .section-head h2 { 
-            font-size: 32px; font-weight: 700; 
-            letter-spacing: -0.02em; line-height: 1.1; text-wrap: balance; 
-          }
-          .section-head p { 
-            max-width: 672px; color: var(--muted-fg); line-height: 1.6; text-wrap: pretty; 
-          }
-          .about-grid { 
-            display: flex; flex-direction: column; gap: 40px; 
-          }
-          .about-text { 
-            display: flex; flex-direction: column; gap: 20px; 
-          }
-          .about-text p { 
-            font-size: 18px; line-height: 1.6; text-wrap: pretty; 
-          }
-          .facts-list { 
-            font-family: var(--mono); font-size: 14px; 
-          }
-          .facts-list div {
-            display: flex; justify-content: space-between; gap: 16px;
-            padding: 12px 16px; border-bottom: 1px solid var(--border);
-          }
-          .facts-list div:last-child { border-bottom: none; }
-          .facts-list dt { color: var(--muted-fg); }
-          .facts-list dd { font-weight: 600; text-align: right; }
-          .projects { 
-            display: grid; gap: 16px; 
-          }
-          .project { 
-            display: flex; flex-direction: column; gap: 16px; padding: 20px; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-          }
-          .project:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 28px rgba(27, 35, 55, 0.10);
-            border-color: var(--primary); 
-          }
-          .project-top { 
-            display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; 
-          }
-          .project h3 { font-size: 18px; font-weight: 600; line-height: 1.2; }
-          .project p { font-size: 14px; line-height: 1.6; color: var(--muted-fg); }
-          .tags { 
-            margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px; 
-          }
-          .tags li { 
-            background: var(--muted); padding: 4px 8px; 
-            border-radius: 3px; font-family: var(--mono); font-size: 12px; 
-          }
-          .results { 
-            display: flex; flex-direction: column; gap: 12px; 
-          }
-          .results ul li {
-            display: flex; flex-direction: column; gap: 4px;
-            padding: 12px 16px; border-bottom: 1px solid var(--border);
-          }
-          .results ul li:last-child { border-bottom: none; }
-          .results .name { font-weight: 500; }
-          .results .meta { 
-            display: flex; gap: 12px; font-family: var(--mono); font-size: 14px; 
-          }
-          .results .result { font-weight: 600; color: var(--primary); }
-          .two-col { 
-            display: flex; flex-direction: column; gap: 32px; 
-          }
-          .col {
-            display: flex; flex-direction: column; gap: 32px; 
-          }
-          .skills { 
-            display: flex; flex-direction: column; gap: 12px; padding: 16px; 
-          }
-          .skill-row { 
-            display: flex; justify-content: space-between; 
-            font-family: var(--mono); font-size: 14px; margin-bottom: 6px; 
-          }
-          .bar { 
-            height: 8px; background: var(--muted); 
-            border-radius: 3px; overflow: hidden; 
-          }
-          .bar span { 
-            display: block; height: 100%; background: var(--fg); 
-          }
-          .football-grid { 
-            display: flex; flex-direction: column; gap: 16px; 
-          }
-          .player-card {
-            display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
-            background: var(--pitch); color: #fff; padding: 24px; border-radius: var(--radius);
-          }
-          .player-number { 
-            display: flex; justify-content: space-between; align-items: baseline; 
-          }
-          .player-number .label { color: rgba(255, 255, 255, 0.8); }
-          .player-number strong { font-size: 72px; line-height: 1; font-weight: 700; }
-          .player-details { 
-            display: flex; flex-direction: column; gap: 8px; font-family: var(--mono); font-size: 14px; 
-          }
-          .player-details div { 
-            display: flex; justify-content: space-between; gap: 16px; 
-            padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.25); 
-          }
-          .player-details dt { opacity: 0.8; }
-          .player-details dd { font-weight: 600; text-align: right; }
-          .contact { 
-            display: flex; flex-direction: column; gap: 24px; 
-          }
-          .email {
-            width: fit-content; word-break: break-all; 
-            font-size: 24px; font-weight: 600;
-            text-decoration: underline; text-decoration-color: var(--primary);
-            text-decoration-thickness: 2px; text-underline-offset: 8px; 
-            transition: color 0.2s;
-          }
-          .email:hover { color: var(--primary); }
-          .links { 
-            display: flex; flex-wrap: wrap; gap: 12px; 
-          }
-          .links a {
-            display: block; padding: 8px 16px; 
-            font-family: var(--mono); font-size: 14px;
-            background: var(--card); border: 1px solid var(--border); 
-            border-radius: 3px; transition: border-color 0.2s;
-          }
-          .links a:hover { border-color: var(--fg); }
-          footer { 
-            border-top: 1px solid var(--border); 
-          }
-          footer .container {
-            display: flex; flex-direction: column; 
-            gap: 8px; padding-top: 24px; padding-bottom: 24px;
-            font-family: var(--mono); font-size: 12px; color: var(--muted-fg);
-          }
-          @media (min-width: 640px) {
-            .logo-name { display: inline; }
-            .results ul li { flex-direction: row; justify-content: space-between; align-items: center; }
-            footer .container { flex-direction: row; justify-content: space-between; }
-          }
-          @media (min-width: 768px) {
-            .hero { flex-direction: row; align-items: center; padding-top: 96px; padding-bottom: 96px; }
-            .hero-text { flex: 3; }
-            .hero-figure { flex: 2; }
-            .hero h1 { font-size: 72px; }
-            section.block { padding: 96px 0; }
-            .section-head h2 { font-size: 48px; }
-            .about-grid { flex-direction: row; }
-            .about-text { flex: 2; }
-            .facts-list { flex: 1; align-self: flex-start; }
-            .projects { grid-template-columns: repeat(3, 1fr); }
-            .two-col { flex-direction: row; }
-            .two-col > * { flex: 1; }
-            .email { font-size: 36px; }
-          }
-        </style>
-    </head>
-    <body>
-        <div id="scroll-progress"></div>
-        <header>
-            <div class="container">
-              <a href="#top" class="logo">
-                <span class="logo-box">LM</span>
-                <span class="logo-name">Mihai</span>
-              </a>
-              <nav aria-label="Navigare principală">
-                <ul>
-                  <li><a href="#about">About me</a></li>
-                  <li><a href="#robotics">Robotics</a></li>
-                  <li><a href="#info-math">Info &amp; Math</a></li>
-                  <li><a href="#football">Football</a></li>
-                  <li><a href="#contact">Contact</a></li>
-                </ul>
-              </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Personal portfolio about robotics, computer science, mathematics, football and cybersecurity."/>
+    <meta name="theme-color" content="#f6f7f9" />
+    <title>About Me | Robotics, Computer Science & More</title>
 
-              <div class="header-actions">
-                <div class="theme-picker" title="Schimbă culoarea accentului">
-                  <div class="color-dot" style="background: #e8701f;" onclick="setAccent('#e8701f')"></div>
-                  <div class="color-dot" style="background: #2f8a50;" onclick="setAccent('#2f8a50')"></div>
-                  <div class="color-dot" style="background: #2563eb;" onclick="setAccent('#2563eb')"></div>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"rel="stylesheet"/>
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --fg: #1b2337;
+        --card: #fff;
+        --primary: #e8701f;
+        --pitch: #2f8a50;
+        --muted: #eceef2;
+        --muted-fg: #646b80;
+        --border: #d9dde5;
+        --grid: rgba(27, 35, 55, 0.055);
+        --radius: 10px;
+        --mono: "JetBrains Mono", ui-monospace, monospace;
+        --sans: "Space Grotesk", system-ui, sans-serif;
+        --shadow: 0 12px 32px rgba(27, 35, 55, 0.09);
+      }
+
+      body.dark-mode {
+        --bg: #101522;
+        --fg: #edf0f7;
+        --card: #192132;
+        --muted: #252e40;
+        --muted-fg: #a4aec2;
+        --border: #343e52;
+        --grid: rgba(255, 255, 255, 0.045);
+        --shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 90px;
+      }
+
+      body {
+        font-family: var(--sans);
+        color: var(--fg);
+        line-height: 1.6;
+        background-color: var(--bg);
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 24px 24px;
+        transition: background-color 0.3s, color 0.3s;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      button {
+        color: inherit;
+      }
+
+      .container {
+        width: min(1100px, calc(100% - 36px));
+        margin-inline: auto;
+      }
+
+      .mono,
+      .label {
+        font-family: var(--mono);
+      }
+
+      .muted {
+        color: var(--muted-fg);
+      }
+
+      .label {
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted-fg);
+      }
+
+      #scroll-progress {
+        position: fixed;
+        inset: 0 auto auto 0;
+        width: 0;
+        height: 3px;
+        background: var(--primary);
+        z-index: 1000;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        min-height: 68px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-family: var(--mono);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .logo-box {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        background: var(--fg);
+        color: var(--bg);
+        border-radius: 7px;
+      }
+
+      .logo-name {
+        display: none;
+      }
+
+      nav {
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      nav ul {
+        display: flex;
+        gap: 4px;
+        white-space: nowrap;
+        font: 12px var(--mono);
+      }
+
+      nav a {
+        display: block;
+        padding: 8px 9px;
+        border-radius: 6px;
+        color: var(--muted-fg);
+      }
+
+       nav a:hover,
+       nav a:focus-visible {
+        background: var(--muted);
+        color: var(--fg);
+      }
+
+       .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .theme-picker {
+        display: flex;
+        gap: 6px;
+      }
+
+      .color-dot {
+        width: 17px;
+        height: 17px;
+        border: 2px solid var(--border);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .color-dot:hover {
+        transform: scale(1.2);
+      }
+
+      .color-dot[aria-pressed="true"] {
+        outline: 2px solid var(--fg);
+        outline-offset: 2px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border: 1px solid var(--fg);
+        border-radius: 6px;
+        font: 12px var(--mono);
+        cursor: pointer;
+        transition: transform 0.2s, background 0.2s, color 0.2s, box-shadow 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 18px rgba(0, 0, 0, 0.12);
+      }
+
+      .btn-solid {
+        background: var(--fg);
+        color: var(--bg);
+      }
+
+      .btn-outline {
+        background: transparent;
+      }
+
+      .btn-outline:hover {
+        background: var(--fg);
+        color: var(--bg);
+      }
+
+       button:focus-visible,
+       a:focus-visible,
+       input:focus-visible {
+        outline: 3px solid var(--primary);
+        outline-offset: 3px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 44px;
+        align-items: center;
+        padding-block: 62px;
+      }
+
+      .hero-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 22px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        background: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        font: 11px var(--mono);
+        color: var(--muted-fg);
+      }
+
+      .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--pitch);
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--pitch) 16%, transparent);
+      }
+
+      h1 {
+        font-size: clamp(2.6rem, 8vw, 5rem);
+        line-height: 1.02;
+        letter-spacing: -0.055em;
+        text-wrap: balance;
+      }
+
+       h1 span,
+       .accent {
+        color: var(--primary);
+      }
+
+      .tagline {
+        font-size: clamp(1.1rem, 3vw, 1.4rem);
+        font-weight: 600;
+        line-height: 1.35;
+      }
+
+      .typing-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1em;
+        margin-left: 3px;
+        vertical-align: -0.12em;
+        background: var(--primary);
+        animation: blink 0.8s steps(2, start) infinite;
+      }
+
+      @keyframes blink {
+        to {
+          visibility: hidden;
+        }
+      }
+
+      .intro {
+        max-width: 610px;
+        color: var(--muted-fg);
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 11px;
+      }
+
+      .hero-figure {
+        max-width: 430px;
+        width: 100%;
+        justify-self: center;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .hero-figure .card {
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .hero-figure .card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-img {
+        aspect-ratio: 4 / 3;
+        background: var(--muted);
+        overflow: hidden;
+      }
+
+      .hero-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .image-fallback {
+        display: none;
+        min-height: 250px;
+        place-items: center;
+        text-align: center;
+        padding: 20px;
+        color: var(--muted-fg);
+        font: 12px var(--mono);
+      }
+
+      .hero-facts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--border);
+      }
+
+      .hero-facts div {
+        background: var(--muted);
+        padding: 12px;
+      }
+
+      .hero-facts dt {
+        font: 10px var(--mono);
+        color: var(--muted-fg);
+      }
+
+      .hero-facts dd {
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .small {
+        padding-top: 10px;
+        color: var(--muted-fg);
+        font: 11px var(--mono);
+      }
+
+      section.block {
+        padding: 72px 0;
+        border-top: 1px solid var(--border);
+        scroll-margin-top: 76px;
+      }
+
+      .section-head {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 32px;
+      }
+
+      .section-head h2 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+      }
+
+      .section-head p {
+        max-width: 700px;
+        color: var(--muted-fg);
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .about-text {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .about-text p {
+        font-size: 1.05rem;
+      }
+
+      .facts-list {
+        padding: 8px 16px;
+        font: 12px var(--mono);
+      }
+
+      .facts-list div {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .facts-list div:last-child {
+        border-bottom: 0;
+      }
+
+      .facts-list dt {
+        color: var(--muted-fg);
+      }
+
+      .facts-list dd {
+        text-align: right;
+        font-weight: 600;
+        max-width: 60%;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .filter-btn {
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        background: var(--card);
+        font: 11px var(--mono);
+        cursor: pointer;
+      }
+
+      .filter-btn[aria-pressed="true"],
+      .filter-btn:hover {
+        background: var(--fg);
+        color: var(--bg);
+        border-color: var(--fg);
+      }
+
+      .projects {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .project {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        min-height: 230px;
+        transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      }
+
+      .project:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+        border-color: var(--primary);
+      }
+
+      .project-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .project h3 {
+        font-size: 1.1rem;
+        line-height: 1.3;
+      }
+
+      .project p {
+        font-size: 0.9rem;
+        color: var(--muted-fg);
+      }
+
+      .project-icon {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        background: var(--muted);
+        font-size: 1.2rem;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: auto;
+      }
+
+      .tags li {
+        padding: 4px 8px;
+        background: var(--muted);
+        border-radius: 4px;
+        font: 10px var(--mono);
+      }
+
+      .project-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        font: 11px var(--mono);
+      }
+
+      .text-link {
+        color: var(--primary);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+      }
+
+      .results {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .result-list {
+        padding: 0 16px;
+      }
+
+      .result-list li {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .result-list li:last-child {
+        border-bottom: 0;
+      }
+
+      .result-meta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        font: 11px var(--mono);
+      }
+
+      .result {
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .skills {
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .skill-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 6px;
+        font: 12px var(--mono);
+      }
+
+      .bar {
+        height: 7px;
+        background: var(--muted);
+        border-radius: 99px;
+        overflow: hidden;
+      }
+
+      .bar span {
+        display: block;
+        height: 100%;
+        width: var(--level);
+        background: var(--primary);
+        border-radius: 99px;
+      }
+
+      .skill-note {
+        font-size: 11px;
+        color: var(--muted-fg);
+        margin-top: 4px;
+      }
+
+      .cyber-panel {
+        padding: 24px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+
+      .cyber-panel h3 {
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+      }
+
+      .cyber-panel p {
+        color: var(--muted-fg);
+      }
+
+      .terminal {
+        background: #0c111b;
+        color: #dce6f7;
+        border: 1px solid #303b50;
+        border-radius: 9px;
+        overflow: hidden;
+        font: 12px var(--mono);
+        min-width: 0;
+      }
+
+      .terminal-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 11px 13px;
+        background: #171f2d;
+        border-bottom: 1px solid #303b50;
+        color: #9eacc2;
+      }
+
+      .terminal-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #69758a;
+      }
+
+      .terminal-body {
+        padding: 16px;
+        min-height: 180px;
+      }
+
+      .terminal-output {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        color: #b7c6db;
+        min-height: 110px;
+        margin-bottom: 12px;
+      }
+
+      .terminal-line {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .terminal-line label {
+        color: #8ed6a5;
+      }
+
+      .terminal-line input {
+        width: 100%;
+        min-width: 0;
+        background: transparent;
+        border: 0;
+        outline: none;
+        color: #fff;
+        font: inherit;
+      }
+
+      .terminal-line input:focus-visible {
+        outline: 1px solid #8ed6a5;
+        outline-offset: 3px;
+      }
+
+      .terminal-help {
+        font-size: 10px;
+        color: #9eacc2;
+        margin-top: 10px;
+      }
+
+      .football-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .player-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 26px;
+        background: var(--pitch);
+        color: #fff;
+        border-radius: var(--radius);
+        min-height: 230px;
+      }
+
+      .player-number {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+
+      .player-number .label {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .player-number strong {
+        font-size: 5rem;
+        line-height: 1;
+      }
+
+      .player-details {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        font: 12px var(--mono);
+      }
+
+      .player-details div {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.25);
+      }
+
+      .player-details dt {
+        opacity: 0.8;
+      }
+
+      .player-details dd {
+        font-weight: 700;
+        text-align: right;
+      }
+
+      .football-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px;
+        padding: 24px;
+      }
+
+      .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .contact-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .email {
+        width: fit-content;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        font-size: clamp(1.2rem, 4vw, 2.1rem);
+        font-weight: 700;
+        text-decoration: underline;
+        text-decoration-color: var(--primary);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 7px;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .links a {
+        padding: 9px 13px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font: 11px var(--mono);
+      }
+
+      .links a:hover {
+        border-color: var(--primary);
+      }
+
+      .contact-note {
+        font-size: 12px;
+        color: var(--muted-fg);
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+      }
+
+      footer .container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding-block: 24px;
+        color: var(--muted-fg);
+        font: 10px var(--mono);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .empty-state {
+        padding: 24px;
+        text-align: center;
+        color: var(--muted-fg);
+        font-size: 13px;
+      }
+
+      @media (min-width: 640px) {
+        .logo-name {
+          display: inline;
+        }
+
+        .hero {
+          padding-block: 88px;
+        }
+
+        .hero-img {
+          aspect-ratio: 4 / 5;
+        }
+
+        .projects {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .about-grid {
+          grid-template-columns: 1.4fr 1fr;
+        }
+
+        .two-col {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .result-list li {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .cyber-panel {
+          grid-template-columns: 1fr 1.1fr;
+        }
+
+        .contact-layout {
+          grid-template-columns: 1.2fr 1fr;
+        }
+
+        footer .container {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+
+      @media (min-width: 900px) {
+        .hero {
+          grid-template-columns: 1.3fr 0.8fr;
+          gap: 70px;
+        }
+
+        .projects {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .football-grid {
+          grid-template-columns: 0.8fr 1.2fr;
+        }
+
+        .player-card {
+          min-height: 270px;
+        }
+
+        section.block {
+          padding: 90px 0;
+        }
+      }
+
+      @media (max-width: 767px) {
+        header .container {
+          flex-wrap: wrap;
+          padding-block: 10px;
+        }
+
+        nav {
+          order: 3;
+          width: 100%;
+        }
+
+        .header-actions {
+          margin-left: auto;
+        }
+
+        .theme-picker {
+          gap: 5px;
+        }
+
+        .btn#theme-toggle {
+          padding: 7px 9px !important;
+          font-size: 10px !important;
+        }
+
+        .hero {
+          padding-block: 45px;
+        }
+
+        .section-head {
+          margin-bottom: 24px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+        }
+        :root{
+        --hack-green: #39ff88;
+        --hack-red: #ff304f;
+        }
+
+        body.hack-warning {
+        --primary: #39ff88;
+        }
+
+        body.hack-warning .card,
+        body.hack-warning .cyber-panel {
+        border-color: rgba(57, 255, 136, 0.45);
+        transition: border-color 0.3s;
+        }
+
+        body.hack-warning .status-dot {
+        background: var(--hack-red);
+        box-shadow: 0 0 12px var(--hack-red);
+        }
+
+        #hack-status {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 900;
+        max-width: calc(100% - 32px);
+        padding: 10px 14px;
+        background: #080d12;
+        color: var(--hack-green);
+        border: 1px solid var(--hack-green);
+        border-radius: 6px;
+        font: 11px var(--mono);
+        box-shadow: 0 0 18px rgba(57, 255, 136, 0.12);
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 0.3s, transform 0.3s;
+        }
+        #hack-status.active {
+        opacity: 1;
+        transform: translateY(0);
+        }
+        #hack-status.hack-blink{
+        animation:hackBlink 0.8s steps(2,start) infinite;
+        }
+        @keyframes hackBlink {
+        to { 
+        visibility: hidden; 
+        }
+        }
+        #hack-screen{
+        position: fixed;
+        inset:0;
+        z-index: 2000;
+        display:grid;
+        place-items:center;
+        overflow:auto;
+        padding:24px;
+        background:#020504;
+        color: var(--hack-green);
+        font-family: var(--mono);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.5s, visibility 0.5s;
+        }
+        #hack-screen.active{
+        opacity:1;
+        visibility: visible;
+        pointer-events:auto;
+      }
+      #hack-screen:before{
+        content:"";
+        position: absolute;
+        inset:0;
+        pointer-events:none;
+        background:repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 3px,
+          rgba(57,255,136,0.055)
+        );
+        animation:scanMove 8s linear infinite;
+      }
+      @keyframes scanMove{
+        from{background-position-y:0;}
+        to {background-position-y:100px;}
+      }
+      .hack-content{
+        position:relative;
+        width:min(700px,100%);
+        text-align:center;
+      }
+      .hack-tag{
+        color:var(--hack-red);
+        font-size:12px;
+        letter-spacing:0.25em;
+        margin-bottom:18px;
+      }
+      #hack-title{
+        font-size:clamp(2.2rem,8vw,5.5rem);
+        line-height:1.05;
+        overflow-wrap:anywhere;
+        text-shadow:0 0 12px rgba(57,255,136,0.7);
+        animation:glitch 1.8s infinite;
+      }
+      @keyframes glitch {
+        0%, 90%, 100% { transform: translateX(0); }
+        92% { transform: translateX(-3px); }
+        94% { transform: translateX(3px); }
+        96% { transform: translateX(-1px); }
+      }
+      #hack-log{
+        margin:28px auto;
+        max-width: 560px;
+        min-height:120px;
+        padding:18px;
+        border:1px solid #185a37;
+        background: rgba(10, 28, 18, 0.7);
+        color: #b9ffd4;
+        text-align: left;
+        font-size: 12px;
+        line-height: 2;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      #hack-return {
+      position: relative;
+      padding: 12px 20px;
+      background: var(--hack-green);
+      color: #020504;
+      border: 0;
+      border-radius: 4px;
+      font: 700 12px var(--mono);
+      cursor: pointer;
+      }
+      #hack-return{
+        box-shadow:0 0 24px rgba(57,255,136,0.45);
+      }
+      #hack-replay {
+      display: block;
+      margin: 14px auto 0;
+      padding: 8px;
+      border: 0;
+      background: transparent;
+      color: #8ba997;
+      font: 11px var(--mono);
+      text-decoration: underline;
+      cursor: pointer;
+      }
+      @media(prefers-reduced-motion:reduce){
+        #hack-screen::before,
+        #hack-title,
+        #hack-status.hack-blink{
+          animation:none;
+        }
+      }
+      .quiz-card{
+        padding:clamp(18px,4vw,32px);
+        max-width:820px;
+        margin-inline:auto;
+      }
+      .quiz-top{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:12px;
+        margin-bottom:18px;
+      }
+      .quiz-counter,
+      .quiz-score{
+        font:11px var(--mono);
+        color:var(--muted-fg);
+      }
+      .quiz-progress{
+        width:100%;
+        height:7px;
+        overflow:hidden;
+        background:var(--muted);
+        border-radius:99px;
+        margin-bottom:26px;
+      }
+      #quiz-progress-bar{
+        display:block;
+        width:0%;
+        height:100%;
+        background: var(--primary);
+        border-radius:inherit;
+        transition:width 0.3s ease;
+      }
+      .quiz-answers{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:10px;
+      }
+      .quiz-answer {
+      width: 100%;
+      padding: 14px 16px;
+      text-align: left;
+      background: var(--card);
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      }
+      .quiz-answer:hover:not(:disabled) {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      }
+      .quiz-answer:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+      }
+
+      .quiz-answer:disabled {
+      cursor: default;
+      }
+
+      .quiz-answer.correct {
+      border-color: #2f9e62;
+      background: color-mix(in srgb, #2f9e62 14%, var(--card));
+      }
+
+      .quiz-answer.incorrect {
+      border-color: #dc4545;
+      background: color-mix(in srgb, #dc4545 12%, var(--card));
+      }
+
+      .quiz-feedback {
+      min-height: 54px;
+      margin-top: 18px;
+      color: var(--muted-fg);
+      font-size: 0.92rem;
+     }
+
+     .quiz-feedback.feedback-correct {
+     color: #2f9e62;
+    }
+
+    .quiz-feedback.feedback-incorrect {
+    color: #dc4545;
+    }
+
+    .quiz-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    }
+
+    #quiz-next:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    }
+
+    .quiz-result {
+    margin-top: 24px;
+    padding: 24px;
+    text-align: center;
+    background: var(--muted);
+    border-radius: var(--radius);
+  }
+
+  .quiz-result h3 {
+    font-size: clamp(1.5rem, 4vw, 2.3rem);
+    margin: 10px 0;
+  }
+
+  .quiz-result p {
+    color: var(--muted-fg);
+    margin-bottom: 14px;
+  }
+
+  .quiz-result[hidden] {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .quiz-answers {
+     grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+   #quiz-progress-bar,
+    .quiz-answer {
+      transition: none;
+    }
+  }
+    </style>
+  </head>
+
+  <body>
+    <div
+      id="scroll-progress"
+      role="progressbar"
+      aria-label="Page reading progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+    ></div>
+
+    <header>
+      <div class="container">
+        <a href="#top" class="logo" aria-label="Back to top">
+          <span class="logo-box">LM</span>
+          <span class="logo-name">Mihai</span>
+        </a>
+
+        <nav aria-label="Main navigation">
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#robotics">Projects</a></li>
+            <li><a href="#info-math">Info &amp; Math</a></li>
+            <li><a href="#cybersecurity">Cybersecurity</a></li>
+            <li><a href="#knowledge-lab">Knowledge Lab</a></li>
+            <li><a href="#football">Football</a></li>
+            <li><a href="#football">Football</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="theme-picker" aria-label="Choose accent colour">
+            <button
+              class="color-dot"
+              type="button"
+              style="background: #e8701f"
+              data-accent="#e8701f"
+              aria-label="Orange accent"
+              aria-pressed="true"
+            ></button>
+            <button
+              class="color-dot"
+              type="button"
+              style="background: #2f8a50"
+              data-accent="#2f8a50"
+              aria-label="Green accent"
+              aria-pressed="false"
+            ></button>
+            <button
+              class="color-dot"
+              type="button"
+              style="background: #2563eb"
+              data-accent="#2563eb"
+              aria-label="Blue accent"
+              aria-pressed="false"
+            ></button>
+          </div>
+
+           <button id="theme-toggle" class="btn btn-outline" type="button" aria-pressed="false">
+             Dark mode
+           </button>
+         </div>
+        </div>
+    </header>
+
+     <main>
+          <section id="top" class="container hero">
+          <div class="hero-text">
+             <span class="eyebrow">
+             <span class="status-dot" aria-hidden="true"></span>
+             STUDENT · BUILDER · PROBLEM SOLVER
+           </span>
+
+            <h1>Hi, I'm <span>Lascăr Mihai</span>.</h1>
+
+            <p class="tagline">
+              <span id="typing-text">I build robots.</span>
+             <span class="typing-cursor" aria-hidden="true"></span>
+            </p>
+
+              <p class="intro">
+               I’m a student who enjoys logic, technology and movement — from building robots
+               and solving algorithmic problems to playing football. This is where I share what
+              I’m learning, what I build and where I want to go next.
+           </p>
+
+              <div class="buttons">
+              <a href="#about" class="btn btn-solid">Explore my work ↘</a>
+            <a href="#contact" class="btn btn-outline">Get in touch</a>
+          </div>
+        </div>
+
+        <figure class="hero-figure reveal">
+          <div class="card">
+            <div class="hero-img">
+              <img src="RobotBobo.jfif" alt="Robot built on the work table">
+            </div>
+
+            <dl class="hero-facts">
+              <div>
+                <dt>Location</dt>
+                <dd>Iași, Romania</dd>
                 </div>
-                <button id="theme-toggle" class="btn btn-outline" type="button" aria-pressed="false" style="padding:6px 12px;font-size:12px;">
-                  Dark mode
-                </button>
+              <div>
+                  <dt>School year</dt>
+                 <dd>Grade 9</dd>
+               </div>
+              <div>
+                 <dt>Favourite language</dt>
+                <dd>C++</dd>
+               </div>
+              <div>
+                  <dt>Current interests</dt>
+                <dd>Robotics &amp; security</dd>
+                </div>
+            </dl>
+            </div>
+           <figcaption class="small">// Building, testing, learning.</figcaption>
+        </figure>
+       </section>
+
+       <section id="about" class="block">
+        <div class="container reveal">
+           <div class="section-head">
+            <h2>Curiosity turns into <span class="accent">projects.</span></h2>
+             <p>A little about what motivates me and what I’m working towards.</p>
+          </div>
+
+          <div class="about-grid">
+             <div class="about-text">
+              <p>
+                 I started learning computer science in middle school, writing my first
+                programs in C++. Since then, I’ve enjoyed the challenge of turning a problem
+                into a clear, working solution.
+              </p>
+                  <p>
+                Mathematics helps me think logically, while robotics lets me connect code with real-world hardware — sensors, motors and mechanisms.
+              </p>
+                  <p>
+                Outside the computer, I enjoy football. It’s a good reminder that teamwork,
+                  practice and persistence matter just as much as technical skill.
+              </p>
+                <p>
+                My long-term goal is to keep growing in computer science and explore
+                <strong>cybersecurity</strong> through legal labs, practical challenges and
+                projects.
+              </p>
+            </div>
+
+            <dl class="card facts-list">
+              <div>
+                <dt>Location</dt>
+                <dd>Iași, Romania</dd>
+              </div>
+              <div>
+                <dt>School year</dt>
+                <dd>Grade 9</dd>
+               </div>
+               <div>
+                 <dt>Favourite language</dt>
+                 <dd>C++</dd>
+               </div>
+               <div>
+                 <dt>Interests</dt>
+                 <dd>Robotics, algorithms</dd>
+               </div>
+               <div>
+                 <dt>Exploring</dt>
+                 <dd>Cybersecurity</dd>
+               </div>
+               <div>
+                 <dt>Football role</dt>
+                 <dd>Striker</dd>
+               </div>
+             </dl>
+           </div>
+         </div>
+       </section>
+
+       <section id="robotics" class="block">
+         <div class="container reveal">
+           <div class="section-head">
+             <h2>Things that come to <span class="accent">life.</span></h2>
+             <p>
+               Projects are the best way to turn what I learn into something real. I’ll keep
+               adding details as each project develops.
+             </p>
+           </div>
+
+           <div class="filters" role="group" aria-label="Filter projects">
+             <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">
+               All projects
+             </button>
+             <button class="filter-btn" type="button" data-filter="robotics" aria-pressed="false">
+              Robotics
+             </button>
+              <button class="filter-btn" type="button" data-filter="web" aria-pressed="false">
+              Web
+              </button>
+             <button class="filter-btn" type="button" data-filter="cybersecurity" aria-pressed="false">
+              Cybersecurity
+              </button>
+            </div>
+
+           <ul class="projects" id="project-list">
+             <li class="card project" data-category="robotics">
+                <div class="project-top">
+                  <div>
+                    <span class="label">Robotics · 2026</span>
+                   <h3>Line Follower Robot</h3>
+                 </div>
+                 <span class="project-icon" aria-hidden="true">🤖</span>
+               </div>
+
+               <p>
+                A robot designed to follow a track using sensors and control logic. Add your
+                exact hardware, results and lessons learned as the build progresses.
+                </p>
+
+                <ul class="tags" aria-label="Technologies">
+                  <li>Arduino</li>
+                  <li>Sensors</li>
+                  <li>C++</li>
+               </ul>
+
+                <div class="project-links">
+                 <a class="text-link" href="#contact">Ask about this project ↗</a>
+                </div>
+              </li>
+
+              <li class="card project" data-category="robotics">
+               <div class="project-top">
+                  <div>
+                   <span class="label">FTC · In progress</span>
+                    <h3>FTC Robotics</h3>
+                  </div>
+                 <span class="project-icon" aria-hidden="true">⚙️</span>
+               </div>
+
+                <p>
+                Learning robot mechanisms and Java-based robot control, from drivetrain
+                movement to sensors and autonomous routines.
+               </p>
+
+                <ul class="tags" aria-label="Technologies">
+                 <li>FTC</li>
+                 <li>Java</li>
+                 <li>Mechanics</li>
+               </ul>
+
+              <div class="project-links">
+                  <a class="text-link" href="#contact">Project details coming soon</a>
+               </div>
+             </li>
+
+              <li class="card project" data-category="web">
+                <div class="project-top">
+                  <div>
+                   <span class="label">Web · 2026</span>
+                   <h3>Personal Portfolio</h3>
+                 </div>
+                 <span class="project-icon" aria-hidden="true">⌘</span>
+                </div>
+
+               <p>
+                This website: a responsive portfolio with theme settings, accent colours,
+                project filters and a small interactive terminal.
+               </p>
+
+                <ul class="tags" aria-label="Technologies">
+                  <li>HTML</li>
+                  <li>CSS</li>
+                  <li>JavaScript</li>
+                </ul>
+
+               <div class="project-links">
+                  <a class="text-link" href="#top">You’re viewing it ↗</a>
+               </div>
+              </li>
+
+              <li class="card project" data-category="cybersecurity">
+              <div class="project-top">
+                  <div>
+                   <span class="label">Cybersecurity · Learning</span>
+                   <h3>Security Labs</h3>
+                 </div>
+                 <span class="project-icon" aria-hidden="true">🛡️</span>
+               </div>
+
+                <p>
+                  A learning log for legal practice challenges, notes and small scripts. Add
+                 write-ups after completing each lab without sharing sensitive information.
+               </p>
+
+                 <ul class="tags" aria-label="Topics">
+                    <li>Linux</li>
+                   <li>Networking</li>
+                <li>Python</li>
+              </ul>
+
+              <div class="project-links">
+                <a class="text-link" href="#cybersecurity">Learning roadmap ↗</a>
+              </div>
+            </li>
+
+            <li class="card project" data-category="web">
+              <div class="project-top">
+                <div>
+                  <span class="label">Algorithms · Ongoing</span>
+                  <h3>Problem Solving</h3>
+                </div>
+                <span class="project-icon" aria-hidden="true">{ }</span>
+              </div>
+
+              <p>
+                A collection of algorithmic problems, approaches and lessons learned through
+                practice. Link to public solutions only when allowed by the platform.
+              </p>
+
+              <ul class="tags" aria-label="Topics">
+                <li>C++</li>
+                <li>Algorithms</li>
+                <li>Math</li>
+              </ul>
+
+              <div class="project-links">
+                <a class="text-link" href="#info-math">Skills &amp; results ↗</a>
+              </div>
+            </li>
+          </ul>
+
+          <p id="filter-status" class="skill-note" aria-live="polite" style="margin-top: 14px">
+            Showing all projects.
+          </p>
+        </div>
+      </section>
+
+      <section id="info-math" class="block">
+        <div class="container reveal">
+          <div class="section-head">
+            <h2>Problems &amp; <span class="accent">solutions.</span></h2>
+            <p>
+              I enjoy algorithmic thinking, mathematics and the process of improving
+              through challenging problems.
+            </p>
+          </div>
+
+          <div class="two-col">
+            <div class="col">
+              <div class="results">
+                <h3 class="label">Competitions &amp; milestones</h3>
+
+                <ul class="card result-list">
+                  <li>
+                    <span class="name">Informatics Olympiad</span>
+                    <span class="result-meta">
+                      <span class="result">National stage</span>
+                      <span class="muted">Add exact year/result</span>
+                    </span>
+                  </li>
+
+                  <li>
+                    <span class="name">Algorithmic problem solving</span>
+                    <span class="result-meta">
+                      <span class="muted">Ongoing practice</span>
+                    </span>
+                  </li>
+
+                  <li>
+                    <span class="name">Mathematics</span>
+                    <span class="result-meta">
+                      <span class="muted">Geometry &amp; combinatorics</span>
+                    </span>
+                  </li>
+                </ul>
+
+                <p class="skill-note">
+                  Update the competition labels to match your exact official results before
+                  publishing.
+                </p>
               </div>
             </div>
-        </header>
 
-        <main>
-            <section id="top" class="container hero">
-                <div class="hero-text">
-                    <h1>Hi, I'm <span>Lascăr Mihai</span>.</h1>
-                    <p class="tagline">I build robots, solve computer problems, and play football.</p>
-                    <p class="intro">
-                        I am a student passionate about everything that means logic and movement: from a robot that follows a line,
-                        to an Olympics problem or a counterattack on the field. Here you can find everything I do and what I like.
-                    </p>
-                    <div class="buttons">
-                        <a href="#about" class="btn btn-solid">Learn more</a>
-                        <a href="#contact" class="btn btn-outline">Contact</a>
+            <div class="col">
+              <div class="results">
+                <h3 class="label">Skills I’m developing</h3>
+
+                <div class="card skills">
+                  <div>
+                    <div class="skill-row">
+                      <span>C++ &amp; algorithms</span>
+                      <span class="muted">Strong focus</span>
                     </div>
+                    <div class="bar"><span style="--level: 82%"></span></div>
+                  </div>
+
+                  <div>
+                    <div class="skill-row">
+                      <span>HTML &amp; CSS</span>
+                      <span class="muted">Building projects</span>
+                    </div>
+                    <div class="bar"><span style="--level: 65%"></span></div>
+                  </div>
+
+                  <div>
+                    <div class="skill-row">
+                      <span>Python</span>
+                      <span class="muted">Learning</span>
+                    </div>
+                    <div class="bar"><span style="--level: 45%"></span></div>
+                  </div>
+
+                  <div>
+                    <div class="skill-row">
+                      <span>Java / FTC</span>
+                      <span class="muted">Learning</span>
+                    </div>
+                    <div class="bar"><span style="--level: 35%"></span></div>
+                  </div>
+
+                  <div>
+                    <div class="skill-row">
+                      <span>Mathematics</span>
+                      <span class="muted">Problem solving</span>
+                    </div>
+                    <div class="bar"><span style="--level: 75%"></span></div>
+                  </div>
+
+                  <p class="skill-note">
+                    Progress bars are informal indicators, not objective percentages or
+                    certifications.
+                  </p>
                 </div>
-
-                <figure class="hero-figure">
-                    <div class="card">
-                        <div class="hero-img">
-                            <img src="images/RobotBobo.jfif" alt="Robot built on the work table">
-                        </div>
-                        <dl class="hero-facts">
-                            <div><dt>Age</dt><dd>16 years</dd></div>
-                            <div><dt>City</dt><dd>Iași</dd></div>
-                            <div><dt>Class</dt><dd>a IX-a</dd></div>
-                            <div><dt>Preferred language</dt><dd>C++</dd></div>
-                        </dl>
-                    </div>
-                    <figcaption class="small">My last robot</figcaption>
-                </figure>
-            </section>
-
-            <section id="about" class="block" aria-labelledby="about-title">
-                <div class="container">
-                    <div class="section-head">
-                        <h2 id="about-title">Who am I</h2>
-                    </div>
-                    <div class="about-grid">
-                        <div class="about-text">
-                            <p>I started computer science in the 5th grade, when I did my first programs in C++.</p>
-                            <p>I like math because every problem has an elegant solution waiting to be found. Computer science is where ideas become something that works.</p>
-                            <p>When I'm not at the computer, I'm on the field. Football taught me discipline, teamwork, and not to give up until the last minute.</p>
-                            <p>I want to make a career in computer science and contribute to the development of technology. Besides that, I also want to learn cybersecurity.</p>
-                        </div>
-                        <dl class="card facts-list">
-                            <div><dt>Age</dt><dd>16 years</dd></div>
-                            <div><dt>City</dt><dd>Iași</dd></div>
-                            <div><dt>Class</dt><dd>a IX-a</dd></div>
-                            <div><dt>Preferred language</dt><dd>C++</dd></div>
-                            <div><dt>Position</dt><dd>Striker</dd></div>
-                            <div><dt>School</dt><dd>Liceul Teoretic de Informatică</dd></div>
-                        </dl>
-                    </div>
-                </div>
-            </section>
-
-            <section id="robotics" class="block" aria-labelledby="robotics-title">
-                <div class="container">
-                    <div class="section-head">
-                        <h2 id="robotics-title">Things that come to life</h2>
-                        <p>I work on my own projects and am part of a high school robotics team. I love the programming part of the sensors and how the engines work.</p>
-                    </div>
-
-                    <ul class="projects">
-                        <li class="card project">
-                            <div class="project-top">
-                                <h3>Line Follower Robot</h3>
-                                <span class="mono muted" style="font-size:12px">2026</span>
-                            </div>
-                            <p>Robot optimized for fast track navigation using analog sensors.</p>
-                            <ul class="tags" aria-label="Tehnologii">
-                                <li>Arduino</li><li>Sensors</li><li>C++</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="info-math" class="block" aria-labelledby="info-math-title">
-                <div class="container">
-                    <div class="section-head">
-                        <h2 id="info-math-title">Problems &amp; Solutions</h2>
-                        <p>I participate in computer science and math Olympiads and solve problems online almost every day.</p>
-                    </div>
-
-                    <div class="two-col">
-                        <div class="col">
-                            <div class="results">
-                                <h3 class="label">Olympics and competitions</h3>
-                                <ul class="card">
-                                    <li>
-                                        <span class="name">Informatics Olympiad — National stage</span>
-                                        <span class="meta"><span class="result">Mention</span><span class="muted">2025</span></span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="results">
-                                <h3 class="label">Skills</h3>
-                                <ul class="card skills">
-                                    <li>
-                                        <div class="skill-row"><span>C++</span><span class="muted">85%</span></div>
-                                        <div class="bar" role="progressbar" aria-label="C++" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span style="width:85%"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="skill-row"><span>HTML</span><span class="muted">65%</span></div>
-                                        <div class="bar" role="progressbar" aria-label="HTML" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"><span style="width:65%"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="skill-row"><span>Python</span><span class="muted">50%</span></div>
-                                        <div class="bar" role="progressbar" aria-label="Python" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><span style="width:50%"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="skill-row"><span>Java</span><span class="muted">45%</span></div>
-                                        <div class="bar" role="progressbar" aria-label="Java" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"><span style="width:45%"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="skill-row"><span>Algorithmic</span><span class="muted">80%</span></div>
-                                        <div class="bar" role="progressbar" aria-label="Algoritmică" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"><span style="width:80%"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="skill-row"><span>Geometry</span><span class="muted">90%</span></div>
-                                        <div class="bar" role="progressbar" aria-label="Geometrie" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"><span style="width:90%"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="skill-row"><span>Combinatorics</span><span class="muted">70%</span></div>
-                                        <div class="bar" role="progressbar" aria-label="Combinatorică" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"><span style="width:70%"></span></div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="football" class="block" aria-labelledby="football-title">
-                <div class="container">
-                    <div class="section-head">
-                        <h2 id="football-title">Football</h2>
-                        <p>Passionate about strategy, discipline, and teamwork on the pitch.</p>
-                    </div>
-                    <div class="football-grid">
-                        <div class="player-card">
-                            <div class="player-number">
-                                <span class="label">Position</span>
-                                <strong>9</strong>
-                            </div>
-                            <dl class="player-details">
-                                <div><dt>Role</dt><dd>Striker</dd></div>
-                                <div><dt>Preferred foot</dt><dd>Right</dd></div>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="contact" class="block" aria-labelledby="contact-title">
-                <div class="container">
-                    <div class="section-head">
-                        <h2 id="contact-title">Contact</h2>
-                        <p>Let's get in touch for projects or collaborations.</p>
-                    </div>
-                    <div class="contact">
-                        <a href="mailto:mihai@example.com" class="email">mihai@example.com</a>
-                        <div class="links">
-                            <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer>
-            <div class="container">
-                <p>&copy; 2026 Lascăr Mihai. All rights reserved.</p>
-                <p>Designed with passion.</p>
+              </div>
             </div>
-        </footer>
+          </div>
+        </div>
+      </section>
 
-        <script>
-          const toggleBtn = document.getElementById('theme-toggle');
-          
-          function applyTheme(isDark){
-            document.body.classList.toggle('dark-mode',isDark);
-            toggleBtn.setAttribute('aria-pressed',String(isDark));
-            toggleBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
-          }
+      <section id="cybersecurity" class="block">
+        <div class="container reveal">
+          <div class="section-head">
+            <h2>Learning <span class="accent">cybersecurity.</span></h2>
+            <p>
+              I’m exploring how systems work, how they fail and how to make them safer —
+              using authorised practice environments only.
+            </p>
+          </div>
 
-          const savedTheme = localStorage.getItem('theme');
-          applyTheme(savedTheme=='dark');
+          <div class="cyber-panel">
+            <div>
+              <h3>My learning roadmap</h3>
+              <p>
+                Build the foundations first, then use beginner-friendly labs to practise
+                safely. I’ll document concepts, commands and lessons as I progress.
+              </p>
 
-          toggleBtn.addEventListener('click',()=>{
-            const isDark = !document.body.classList.contains('dark-mode');
-            applyTheme(isDark);
-            localStorage.setItem('theme',isDark ? 'dark' : 'light');
+              <ul class="tags" style="margin-top: 18px">
+                <li>Linux</li>
+                <li>Networking</li>
+                <li>Python</li>
+                <li>Web security</li>
+              </ul>
+            </div>
+
+            <div class="terminal" aria-label="Interactive portfolio terminal">
+              <div class="terminal-head">
+                <span class="terminal-dot"></span>
+                <span class="terminal-dot"></span>
+                <span class="terminal-dot"></span>
+                <span style="margin-left: 6px">mihai@portfolio:~</span>
+              </div>
+
+              <div class="terminal-body">
+                <div id="terminal-output" class="terminal-output" aria-live="polite">
+                  Welcome to Mihai's portfolio terminal.
+                  Type 'help' to see available commands.
+                </div>
+
+                <form id="terminal-form" class="terminal-line">
+                  <label for="terminal-input">visitor@site:~$</label>
+                  <input
+                    id="terminal-input"
+                    type="text"
+                    autocomplete="off"
+                    spellcheck="false"
+                    aria-label="Terminal command"
+                    maxlength="60"
+                  />
+                </form>
+
+                <p class="terminal-help">Try: help · about · projects · skills · clear</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    <section id="knowledge-lab" class="block">
+    <div class="container reveal">
+    <div class="section-head">
+      <h2>Knowledge <span class="accent">Lab.</span></h2>
+        <p>
+        Test your knowledge of C++, algorithms and cybersecurity.
+        Learn from every answer and track your progress.
+        </p>
+    </div>
+
+      <div class="quiz-card card">
+        <div class="quiz-top">
+          <span class="label" id="quiz-category">C++ &amp; Algorithms</span>
+          <span class="quiz-counter" id="quiz-counter">Question 1 / 10</span>
+      </div>
+
+        <div
+         class="quiz-progress"
+          role="progressbar"
+          aria-label="Quiz progress"
+          aria-valuemin="0"
+         aria-valuemax="10"
+          aria-valuenow="0"
+         id="quiz-progress">
+        <span id="quiz-progress-bar"></span>
+       </div>
+
+      <h3 id="quiz-question">Loading question...</h3>
+
+      <div
+        id="quiz-answers"
+        class="quiz-answers"
+        aria-label="Answer options"
+      ></div>
+
+      <p id="quiz-feedback" class="quiz-feedback" aria-live="polite">
+        Choose one answer to begin.
+      </p>
+
+      <div class="quiz-actions">
+        <span id="quiz-score" class="quiz-score">Score: 0</span>
+        <button
+          id="quiz-next"
+          class="btn btn-solid"
+          type="button"
+          disabled>
+          Next question →
+        </button>
+      </div>
+
+      <div id="quiz-result" class="quiz-result" hidden>
+        <p class="label">QUIZ COMPLETED</p>
+        <h3 id="quiz-final-score">Your score: 0 / 10</h3>
+        <p id="quiz-final-message"></p>
+        <button id="quiz-restart" class="btn btn-solid" type="button">
+          Try again ↻
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <section id="football" class="block">
+        <div class="container reveal">
+          <div class="section-head">
+            <h2>Football is about <span class="accent">teamwork.</span></h2>
+            <p>
+              Strategy, discipline and communication matter on the pitch just as much as
+              they do in engineering.
+            </p>
+          </div>
+
+          <div class="football-grid">
+            <div class="player-card">
+              <div class="player-number">
+                <span class="label">Position</span>
+                <strong>9</strong>
+              </div>
+
+              <dl class="player-details">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Striker</dd>
+                </div>
+                <div>
+                  <dt>Preferred foot</dt>
+                  <dd>Right</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div class="card football-copy">
+              <h3>What I take from the game</h3>
+
+              <p class="muted">
+                Football has taught me to make decisions under pressure, trust teammates and
+                keep working after mistakes. These lessons carry over into school, robotics
+                and problem solving.
+              </p>
+
+              <p class="muted">
+                Everyone has a role in a team — whether that means making the pass, finding
+                the solution or helping someone else succeed.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="block">
+        <div class="container reveal">
+          <div class="section-head">
+            <h2>Let’s build something <span class="accent">interesting.</span></h2>
+            <p>
+              For robotics, coding projects or collaboration, you can add your public contact
+              and profile links below.
+            </p>
+          </div>
+
+          <div class="contact-layout">
+            <div class="contact-copy">
+              <p class="muted">
+                I’m always interested in learning from other builders and sharing ideas.
+                Replace the example links with your real public profiles before publishing.
+              </p>
+
+              <a href="mailto:your-email@example.com" class="email">
+                mihailascar12345@gmail.com
+              </a>
+            </div>
+
+            <div class="links">
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+                GitHub ↗
+              </a>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+                LinkedIn ↗
+              </a>
+              <a href="#robotics">My projects ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+    <div id="hack-status" role="status" aria-live="polite">
+    <span class="hack-blink">●</span>
+    SYSTEM ALERT: UNUSUAL ACTIVITY DETECTED
+    </div>
+    <div id="hack-screen" role="dialog"
+     aria-modal="true"
+     aria-labelledby="hack-title"
+     aria-hidden="true">
+    <div class="hack-content">
+    <p class="hack-tag">[ SIMULATION MODE // 100% ]</p>
+
+    <h2 id="hack-title">SYSTEM COMPROMISED</h2>
+
+    <p style="margin-top: 14px">
+    YOUR PORTFOLIO HAS BEEN TAKEN OVER.
+    </p>
+
+    <div id="hack-log" aria-live="polite">
+    Initializing simulation...
+    </div>
+
+    <button id="hack-return" type="button">
+    RESTORE ORIGINAL WEBSITE ↗
+    </button>
+
+    <button id="hack-replay" type="button">
+    Replay simulation
+    </button>
+
+    <p style="margin-top: 22px; color: #789486; font-size: 10px">
+    VISUAL DEMO ONLY — NO SYSTEMS WERE ACCESSED.
+    </p>
+
+    </div>
+    </div>
+    <script>
+      (() => {
+        const body = document.body;
+        const themeButton = document.getElementById("theme-toggle");
+        const root = document.documentElement;
+        const progress = document.getElementById("scroll-progress");
+        const accentButtons = [...document.querySelectorAll("[data-accent]")];
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        function applyTheme(theme) {
+          const isDark = theme === "dark";
+          body.classList.toggle("dark-mode", isDark);
+          themeButton.textContent = isDark ? "Light mode" : "Dark mode";
+          themeButton.setAttribute("aria-pressed", String(isDark));
+          document.querySelector('meta[name="theme-color"]').content = isDark
+            ? "#101522"
+            : "#f6f7f9";
+        }
+
+        try {
+          applyTheme(localStorage.getItem("portfolio-theme") || "light");
+        } catch {
+          applyTheme("light");
+        }
+
+        themeButton.addEventListener("click", () => {
+          const next = body.classList.contains("dark-mode") ? "light" : "dark";
+          applyTheme(next);
+
+          try {
+            localStorage.setItem("portfolio-theme", next);
+          } catch {}
+        });
+
+        function applyAccent(color) {
+          root.style.setProperty("--primary", color);
+          accentButtons.forEach((button) =>
+            button.setAttribute("aria-pressed", String(button.dataset.accent === color))
+          );
+        }
+
+        accentButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const color = button.dataset.accent;
+            applyAccent(color);
+
+            try {
+              localStorage.setItem("portfolio-accent", color);
+            } catch {}
           });
+        });
 
-          const progressBar = document.getElementById('scroll-progress');
-          
-          function updateScrollProgress(){
-            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-
-            const progress = scrollableHeight >0
-            ?window.scrollY / scrollableHeight *100
-            : 0;
-            progressBar.style.width = '${progress}%';
+        try {
+          const savedAccent = localStorage.getItem("portfolio-accent");
+          if (
+            savedAccent &&
+            accentButtons.some((button) => button.dataset.accent === savedAccent)
+          ) {
+            applyAccent(savedAccent);
           }
-          window.addEventListener('scroll',updateScrollProgress,{
-            passive:true
+        } catch {}
+
+        function updateProgress() {
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          const percent =
+            maxScroll > 0
+              ? Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100))
+              : 0;
+
+          progress.style.width = `${percent}%`;
+          progress.setAttribute("aria-valuenow", String(Math.round(percent)));
+        }
+
+        window.addEventListener("scroll", updateProgress, { passive: true });
+        window.addEventListener("resize", updateProgress);
+        updateProgress();
+        const yearElement = document.getElementById("year");
+
+        if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+        }
+
+        const typingText = document.getElementById("typing-text");
+        const phrases = [
+          "I build robots.",
+          "I solve algorithmic problems.",
+          "I explore cybersecurity.",
+          "I keep learning.",
+        ];
+
+        if (reducedMotion) {
+          typingText.textContent = phrases[0];
+        } else {
+          let phraseIndex = 0;
+          let charIndex = phrases[0].length;
+          let deleting = true;
+
+          function typeLoop() {
+            const phrase = phrases[phraseIndex];
+
+            if (deleting) {
+              charIndex--;
+              typingText.textContent = phrase.slice(0, Math.max(0, charIndex));
+
+              if (charIndex <= 0) {
+                deleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+              }
+
+              window.setTimeout(typeLoop, 42);
+            } else {
+              const nextPhrase = phrases[phraseIndex];
+              charIndex++;
+
+              typingText.textContent = nextPhrase.slice(0, charIndex);
+
+              if (charIndex >= nextPhrase.length) {
+                deleting = true;
+                window.setTimeout(typeLoop, 1500);
+              } else {
+                window.setTimeout(typeLoop, 72);
+              }
+            }
+          }
+
+          window.setTimeout(typeLoop, 1700);
+        }
+
+        const revealItems = document.querySelectorAll(".reveal");
+
+        if ("IntersectionObserver" in window && !reducedMotion) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.12 }
+          );
+
+          revealItems.forEach((item) => observer.observe(item));
+        } else {
+          revealItems.forEach((item) => item.classList.add("visible"));
+        }
+
+        const filterButtons = [...document.querySelectorAll("[data-filter]")];
+        const projectCards = [...document.querySelectorAll(".project[data-category]")];
+        const filterStatus = document.getElementById("filter-status");
+
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const filter = button.dataset.filter;
+            filterButtons.forEach((item) =>
+              item.setAttribute("aria-pressed", String(item === button))
+            );
+
+            let shown = 0;
+
+            projectCards.forEach((card) => {
+              const visible = filter === "all" || card.dataset.category === filter;
+              card.hidden = !visible;
+
+              if (visible) shown++;
+            });
+
+            filterStatus.textContent =
+              filter === "all"
+                ? `Showing all ${shown} projects.`
+                : `Showing ${shown} ${filter} project${shown === 1 ? "" : "s"}.`;
           });
-          window.addEventListener('resize',updateScrollProgress);
-          updateScrollProgress();
-          
-          
-          function setAccent(color){
-            document.documentElement.style.setProperty(
-              '--primary',
-              color
-             );
-             localStorage.setItem('accent-color',color);
-          }
-          const savedAccent =localStorage.getItem('accent-color');
+        });
 
-          if(savedAccent){
-            setAccent(savedAccent);
+        const terminalForm = document.getElementById("terminal-form");
+        const terminalInput = document.getElementById("terminal-input");
+        const terminalOutput = document.getElementById("terminal-output");
+
+        const commands = {
+          help:
+            "Available commands:\n  about     — learn about Mihai\n  projects  — list portfolio projects\n  skills    — show areas of interest\n  contact   — jump to contact section\n  clear     — clear the terminal",
+          about:
+            "Student based in Iași, Romania. Interested in computer science, robotics, mathematics, football and cybersecurity.",
+          projects:
+            "Portfolio projects:\n  1. Line Follower Robot (Arduino / C++)\n  2. FTC Robotics (Java / mechanisms)\n  3. Personal Portfolio (HTML / CSS / JavaScript)\n  4. Security Labs (learning in authorised environments)",
+          skills:
+            "Current learning areas:\n  • C++ and algorithms\n  • HTML, CSS and JavaScript\n  • Java for FTC\n  • Python, Linux and networking fundamentals",
+          contact: "Scroll to the Contact section to find the public profile links.",
+        };
+
+        terminalForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          const command = terminalInput.value.trim().toLowerCase();
+          if (!command) return;
+
+          if (command === "clear") {
+            terminalOutput.textContent = "";
+          } else {
+            terminalOutput.textContent = `visitor@site:~$ ${command}\n${
+              commands[command] ||
+              `Command not found: ${command}\nType 'help' to see available commands.`
+            }`;
           }
-        </script>
-    </body>
+
+          terminalInput.value = "";
+
+          if (command === "contact") {
+            document.getElementById("contact").scrollIntoView({
+              behavior: hackReducedMotion ? "auto" : "smooth",
+            });
+          }
+        });
+      })();
+      const hackReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const hackStatus=document.getElementById("hack-status");
+      const hackScreen=document.getElementById("hack-screen");
+      const hackLog=document.getElementById("hack-log");
+      const hackReturn=document.getElementById("hack-return");
+      const hackReplay=document.getElementById("hack-replay");
+
+      let hackTriggered = false;
+      let hackRunning = false;
+      let hackTimers =[];
+
+      const hackMassages=[
+        "[ OK ] Initializing visual simulation...",
+        "[ OK ] Scanning portfolio interface...",
+        "[WARN] Unexpected activity detected...",
+        "[ OK ] Establishing simulated connection...",
+        "[WARN] Security layer overridden...",
+        "[ OK ] Loading final sequence...",
+        "",">>> SYSTEM COMPROMISED <<<",
+        "NOTE: This is a visual effect only."
+      ];
+      function clearHackTimers(){
+        hackTimers.forEach((timer)=>window.clearTimeout(timer));
+        hackTimers=[];
+      }
+      function startHackSequence(){
+        if(hackRunning)return;
+        hackRunning=true;
+        hackTriggered = true;
+
+        clearHackTimers();
+
+        document.body.classList.add("hack-warning");
+        hackStatus.classList.add("active");
+        hackScreen.classList.add("active");
+        hackScreen.setAttribute("aria-hidden", "false");
+        hackLog.textContent = "";
+
+        document.body.style.overflow = "hidden";
+        hackReturn.focus();
+
+        const delay = hackReducedMotion ? 0 : 650;
+        hackMassages.forEach((message,index)=>{
+          const timer = window.setTimeout(()=>{
+            hackLog.textContent += message+ "\n";
+            hackLog.scrollTop= hackLog.scrollHeight;
+            if(index=== hackMassages.length - 1){
+              hackRunning =false;
+            }
+          },delay * (index +1));
+          hackTimers.push(timer);
+        });
+      }
+      function restoreWebsite(){
+        clearHackTimers();
+
+        hackRunning = false;
+        hackTriggered= false;
+        hackScreen.classList.remove("active");
+        hackScreen.setAttribute("aria-hidden","true");
+        hackStatus.classList.remove("active");
+        document.body.classList.remove("hack-warning");
+        document.body.style.overflow = "";
+        window.scrollTo({
+          top:0,
+          behavior:reducedMotion ?"auto" : "smooth"
+        });
+      }
+      function checkHackProgress(){
+        const maxScroll=document.documentElement.scrollHeight - window.innerHeight;
+        if(maxScroll <= 0 || hackTriggered )return;
+        const scrollPercent =(window.scrollY / maxScroll) * 100;
+        if (scrollPercent >= 65) {
+        document.body.classList.add("hack-warning");
+        hackStatus.classList.add("active");
+        }
+
+         if (scrollPercent >= 98) {
+        startHackSequence();
+        }
+      }
+      window.addEventListener("scroll",checkHackProgress,{
+        passive:true
+      });
+
+      hackReturn.addEventListener("click", restoreWebsite);
+      hackReplay.addEventListener("click",()=>{
+        startHackSequence();
+      });
+      hackScreen.addEventListener("keydown",(event)=>{
+        if(event.key === "Escape"){
+          restoreWebsite();
+        }
+      });
+    </script>
+    
+<script>
+(() => {
+  const questions = [
+    {
+      category: "C++ & Algorithms",
+      question: "What is the index of the first element in a C++ array?",
+      answers: ["0", "1", "-1", "It depends on the array size"],
+      correct: 0,
+      explanation:
+        "C++ arrays use zero-based indexing, so the first element is at index 0."
+    },
+    {
+      category: "C++ & Algorithms",
+      question: "How many times does this loop run if n = 5?\nfor (int i = 0; i < n; i++)",
+      answers: ["4 times", "5 times", "6 times", "It never runs"],
+      correct: 1,
+      explanation:
+        "The values of i are 0, 1, 2, 3 and 4. That makes five iterations."
+    },
+    {
+      category: "C++ & Algorithms",
+      question: "What does the == operator do in C++?",
+      answers: [
+        "Assigns a value to a variable",
+        "Checks whether two values are equal",
+        "Multiplies two numbers",
+        "Checks whether a value is greater"
+      ],
+      correct: 1,
+      explanation:
+        "The == operator compares two values. A single = is used for assignment."
+    },
+    {
+      category: "C++ & Algorithms",
+      question: "Which algorithm finds shortest paths in an unweighted graph?",
+      answers: ["Bubble sort", "Binary search", "BFS", "Selection sort"],
+      correct: 2,
+      explanation:
+        "Breadth-first search (BFS) finds shortest paths in an unweighted graph."
+    },
+    {
+      category: "C++ & Algorithms",
+      question: "What does return x * 2; do inside a function?",
+      answers: [
+        "Returns twice the value of x",
+        "Changes every variable named x",
+        "Repeats the function twice",
+        "Ends the entire program in every case"
+      ],
+      correct: 0,
+      explanation:
+        "The expression x * 2 is evaluated and its result is returned to the caller."
+    },
+    {
+      category: "Cybersecurity",
+      question: "What is the main security benefit of HTTPS?",
+      answers: [
+        "It makes every website trustworthy",
+        "It encrypts data transmitted between the browser and server",
+        "It removes all viruses from a computer",
+        "It guarantees that a website has no vulnerabilities"
+      ],
+      correct: 1,
+      explanation:
+        "HTTPS protects data in transit, but it does not guarantee that a website itself is safe."
+    },
+    {
+      category: "Cybersecurity",
+      question: "What is phishing?",
+      answers: [
+        "A method of compressing files",
+        "A way to improve Wi-Fi speed",
+        "A deceptive attempt to steal information or trick a user",
+        "A programming language"
+      ],
+      correct: 2,
+      explanation:
+        "Phishing uses deceptive messages or websites to trick people into revealing information or taking unsafe actions."
+    },
+    {
+      category: "Cybersecurity",
+      question: "Why is multi-factor authentication (MFA) useful?",
+      answers: [
+        "It adds another verification step",
+        "It makes passwords unnecessary in every situation",
+        "It automatically blocks every cyberattack",
+        "It increases internet speed"
+      ],
+      correct: 0,
+      explanation:
+        "MFA requires an additional verification factor, making an account harder to access with only a stolen password."
+    },
+    {
+      category: "Cybersecurity",
+      question: "How should a website securely store user passwords?",
+      answers: [
+        "In a plain text file",
+        "Using reversible encryption without a key-management plan",
+        "As plain text in a database",
+        "Using a password-hashing algorithm such as Argon2 or bcrypt, with salts"
+      ],
+      correct: 3,
+      explanation:
+        "Password-specific hashing algorithms such as Argon2 or bcrypt, used with unique salts, help protect stored passwords."
+    },
+    {
+      category: "Cybersecurity",
+      question: "What is a good defence against SQL injection?",
+      answers: [
+        "Making every database table public",
+        "Using parameterized queries",
+        "Disabling all database backups",
+        "Using a longer website title"
+      ],
+      correct: 1,
+      explanation:
+        "Parameterized queries separate SQL instructions from user-provided data, helping prevent SQL injection."
+    }
+  ];
+
+    const categoryEl = document.getElementById("quiz-category");
+    const counterEl = document.getElementById("quiz-counter");
+    const progressEl = document.getElementById("quiz-progress");
+    const progressBar = document.getElementById("quiz-progress-bar");
+    const questionEl = document.getElementById("quiz-question");
+    const answersEl = document.getElementById("quiz-answers");
+    const feedbackEl = document.getElementById("quiz-feedback");
+    const scoreEl = document.getElementById("quiz-score");
+    const nextButton = document.getElementById("quiz-next");
+    const resultEl = document.getElementById("quiz-result");
+    const finalScoreEl = document.getElementById("quiz-final-score");
+    const finalMessageEl = document.getElementById("quiz-final-message");
+    const restartButton = document.getElementById("quiz-restart");
+
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+
+  function renderQuestion() {
+    const item = questions[currentIndex];
+    answered = false;
+
+    categoryEl.textContent = item.category;
+    counterEl.textContent =
+      `Question ${currentIndex + 1} / ${questions.length}`;
+
+    progressEl.setAttribute("aria-valuenow", currentIndex);
+    progressBar.style.width =
+      `${(currentIndex / questions.length) * 100}%`;
+
+    questionEl.textContent = item.question;
+    answersEl.replaceChildren();
+
+    feedbackEl.textContent = "Choose one answer.";
+    feedbackEl.className = "quiz-feedback";
+
+    nextButton.disabled = true;
+    nextButton.textContent =
+      currentIndex === questions.length - 1
+        ? "See results →"
+        : "Next question →";
+
+    item.answers.forEach((answer, index) => {
+      const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "quiz-answer";
+        button.textContent =
+        `${String.fromCharCode(65 + index)}. ${answer}`;
+
+        button.addEventListener("click", () => selectAnswer(index));
+
+        answersEl.appendChild(button);
+      });
+
+      scoreEl.textContent = `Score: ${score}`;
+    }
+
+    function selectAnswer(selectedIndex) {
+      if (answered) return;
+
+      answered = true;
+
+      const item = questions[currentIndex];
+      const buttons = answersEl.querySelectorAll(".quiz-answer");
+      const isCorrect = selectedIndex === item.correct;
+
+     buttons.forEach((button, index) => {
+       button.disabled = true;
+
+       if (index === item.correct) {
+          button.classList.add("correct");
+        } else if (index === selectedIndex) {
+         button.classList.add("incorrect");
+        }
+      });
+      if (isCorrect) {
+        score++;
+        feedbackEl.textContent = `Correct! ${item.explanation}`;
+        feedbackEl.classList.add("feedback-correct");
+      } else {
+        feedbackEl.textContent =
+          `Not quite. The correct answer is ${
+            item.answers[item.correct]
+          }. ${item.explanation}`;
+
+        feedbackEl.classList.add("feedback-incorrect");
+      }
+
+      scoreEl.textContent = `Score: ${score}`;
+      nextButton.disabled = false;
+    }
+
+    function showResults() {
+      questionEl.hidden = true;
+      answersEl.hidden = true;
+      feedbackEl.hidden = true;
+      nextButton.hidden = true;
+
+      counterEl.textContent = "Quiz completed";
+      categoryEl.textContent = "Final results";
+
+      progressEl.setAttribute("aria-valuenow", questions.length);
+      progressBar.style.width = "100%";
+
+      resultEl.hidden = false;
+      finalScoreEl.textContent = `Your score: ${score} / ${questions.length}`;
+
+      const percentage = Math.round((score / questions.length) * 100);
+
+      if (percentage === 100) {
+        finalMessageEl.textContent =
+         "Excellent! You answered every question correctly.";
+      } else if (percentage >= 70) {
+        finalMessageEl.textContent =
+          "Great work! Review the explanations to strengthen your knowledge.";
+      } else if (percentage >= 40) {
+        finalMessageEl.textContent =
+          "Good start! Keep practising C++ and cybersecurity fundamentals.";
+      } else {
+        finalMessageEl.textContent =
+          "Every attempt helps you learn. Review the explanations and try again!";
+      }
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (!answered) return;
+
+      if (currentIndex === questions.length - 1) {
+        showResults();
+        return;
+      }
+
+      currentIndex++;
+      renderQuestion();
+    });
+
+    restartButton.addEventListener("click", () => {
+      currentIndex = 0;
+      score = 0;
+      answered = false;
+
+      questionEl.hidden = false;
+      answersEl.hidden = false;
+      feedbackEl.hidden = false;
+      nextButton.hidden = false;
+      resultEl.hidden = true;
+
+      renderQuestion();
+
+      questionEl.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+        block: "center"
+      });
+    });
+
+    renderQuestion();
+  })();
+  </script>
+  </body>
 </html>
